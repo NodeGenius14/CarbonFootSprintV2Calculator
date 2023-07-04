@@ -1,13 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" href="index.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
-	<title>CarbonFootsprintCalculator</title>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Bing Maps Api</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='index.css'>
 </head>
 <body>
-	<h1>Ca dit quoi l'équipe en</h1>
+    <header>
+        <h1>Olympic Games CarbonFootsprintCalculator</h1>
+    </header>
+    <main>
+        <div class="options">
+            <input class="search_input" placeholder="Search">
+            <button class="search_btn">Search</button>
+        </div>
+        <div id="map"></div>
+
+    </main>
+    <footer>
+        <p class="copyright">2022 - LC Codes</p>
+    </footer>
+    <script src="map.js"></script>
+    <script src='http://www.bing.com/api/maps/mapcontrol?callback=getMap' async></script>
 </body>
 </html>

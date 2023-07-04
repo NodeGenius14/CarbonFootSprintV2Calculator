@@ -1,2 +1,0 @@
-# CarbonFootSprintV2Calculator
-carbon footsprint calculator

@@ -1,42 +1,42 @@
-
-const searchInput = document.querySelector(".search_input");
-const searchBtn = document.querySelector(".search_btn");
-
-let map, searchManager;
-
-searchBtn.addEventListener("click", ()=>{
-    map.entities.clear();
-    geocodeQuery(searchInput.value);
-});
-
-function getMap(){
-    map = new Microsoft.Maps.Map('#map', {
-        // You need your key.
-    credentials: 'Au3StwO6PwFS37gtE-52dLcOhomBX4tBcN_CZo7KZqP82ymvB9WHWh8Sjm2qs-m-',
+function loadMapScenario() {
+    var map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
+        /* No need to set credentials if already passed in URL */
+        center: new Microsoft.Maps.Location(47.606209, -122.332071),
+        zoom: 12
     });
-};
-
-function geocodeQuery(query){
-    if (!searchManager) {
-        Microsoft.Maps.loadModule('Microsoft.Maps.Search', function () {
-            searchManager = new Microsoft.Maps.Search.SearchManager(map);
-            geocodeQuery(query);
-        });
-    } else {
-        let searchRequest = {
-            where: query,
-            callback: function (r) {
-                if (r && r.results && r.results.length > 0) {
-                    var pin = new Microsoft.Maps.Pushpin(r.results[0].location);
-                    map.entities.push(pin);
-
-                    map.setView({ bounds: r.results[0].bestView });
-                };
-            },
-            errorCallback: function (e) {
-                alert("No results found.");
-            }
+    Microsoft.Maps.loadModule('Microsoft.Maps.AutoSuggest', function () {
+        var options = {
+            maxResults: 4,
+            map: map
         };
-        searchManager.geocode(searchRequest);
-    };
-};
+        var manager = new Microsoft.Maps.AutosuggestManager(options);
+        var manager2 = new Microsoft.Maps.AutosuggestManager(options);
+        manager.attachAutosuggest('#searchBox', '#searchBoxContainer', selectedSuggestion);
+        manager2.attachAutosuggest('#searchBox2', '#searchBoxContainer2', selectedSuggestion2);
+
+        
+
+
+    });
+
+    function selectedSuggestion(suggestionResult) {
+        //map.entities.clear();
+        map.setView({ bounds: suggestionResult.bestView });
+        var pushpin = new Microsoft.Maps.Pushpin(suggestionResult.location);
+        map.entities.push(pushpin);
+        document.getElementById('printoutPanel').innerHTML =
+            'Suggestion: ' + suggestionResult.formattedSuggestion +
+            '<br> Lat: ' + suggestionResult.location.latitude +
+            '<br> Lon: ' + suggestionResult.location.longitude;
+    }
+    function selectedSuggestion2(suggestionResult) {
+        //map.entities.clear();
+        map.setView({ bounds: suggestionResult.bestView });
+        var pushpin = new Microsoft.Maps.Pushpin(suggestionResult.location);
+        map.entities.push(pushpin);
+        document.getElementById('printoutPanel2').innerHTML =
+            'Suggestion: ' + suggestionResult.formattedSuggestion +
+            '<br> Lat: ' + suggestionResult.location.latitude +
+            '<br> Lon: ' + suggestionResult.location.longitude;
+    }
+}

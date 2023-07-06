@@ -60,3 +60,9 @@ footer{
     font-weight: bold;
     padding-top: 2vh;
 }
+
+
+button
+{
+    background-color: #000;
+}

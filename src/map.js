@@ -85,8 +85,6 @@ async function CalculateDistance()
     console.log(url)
 
 
-    console.log("test number :")
-    console.log(Number(listxCoords[0]),Number(listyCoords[0]))
 
     fetch(url)
         .then(response => response.json()
@@ -126,8 +124,7 @@ async function CalculateDistance()
 
                 var workWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: 'Destination', location: new Microsoft.Maps.Location(listxCoords[1],listyCoords[1]) });
                 directionsManager.addWaypoint(workWaypoint);
-
-                directionsManager.setRenderOptions({ itineraryContainer: '#directionsItinerary' });
+                
 
                 //Calculate directions.
                 directionsManager.calculateDirections();

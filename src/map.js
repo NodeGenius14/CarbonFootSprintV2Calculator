@@ -100,21 +100,31 @@ async function CalculateDistance()
                 {
                     resultdistance.textContent = "Trajet Impossible !!!";
 
+
+                    var coords = [
+                        new Microsoft.Maps.Location(listxCoords[0], listyCoords[0]),
+                        new Microsoft.Maps.Location(listxCoords[1], listyCoords[1])
+                    ];
+                    
+                    coords.forEach(v => console.log(v));
+                    
+                    var line = new Microsoft.Maps.Polyline(coords, {
+                        strokeColor: 'red',
+                        strokeThickness: 3,
+                        strokeDashArray: [4, 4]
+                    });
+                    
+                    map.entities.push(line);
+                    
                 }
                 else
                 {
                     resultdistance.textContent = "Distance entre les villes : " + travelDistance + "km";
+                    
+                    
+                map.entities.clear()
 
-                    /*
-                    map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
-                        
-                        center: new Microsoft.Maps.Location(48.853058, 2.343302),
-                        zoom: 12
-                    });
-                    */
-                   map.entities.clear()
-
-                    Microsoft.Maps.loadModule('Microsoft.Maps.Directions', function () {
+                Microsoft.Maps.loadModule('Microsoft.Maps.Directions', function () {
                 //Create an instance of the directions manager.
                 directionsManager = new Microsoft.Maps.Directions.DirectionsManager(map);
 

@@ -32,6 +32,18 @@ function loadMapScenario()
         //map.entities.clear();
 
         // test
+        
+        while(listxCoords.length > 0)
+        {
+            listxCoords.pop();
+        }
+
+        
+        while(listyCoords.length > 0)
+        {
+            listyCoords.pop();
+        }
+
         listxCoords.push(suggestionResult.location.latitude)
         listyCoords.push(suggestionResult.location.longitude)
         
@@ -123,24 +135,43 @@ async function CalculateDistance()
                 map.entities.clear()
 
                 Microsoft.Maps.loadModule('Microsoft.Maps.Directions', function () {
-                //Create an instance of the directions manager.
-                directionsManager = new Microsoft.Maps.Directions.DirectionsManager(map);
+                    // Créez une instance du gestionnaire d'itinéraires.
+                    directionsManager = new Microsoft.Maps.Directions.DirectionsManager(map);
+                  
+                    var seattleWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: 'Départ', location: new Microsoft.Maps.Location(listxCoords[0], listyCoords[0]) });
+                    directionsManager.addWaypoint(seattleWaypoint);
+                  
+                    var workWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: 'Destination', location: new Microsoft.Maps.Location(listxCoords[1], listyCoords[1]) });
+                    directionsManager.addWaypoint(workWaypoint);
+                  
+                    // Calculez les directions.
+                    directionsManager.calculateDirections();
+                  
 
-                //Create waypoints to route between.
+                    var requestOptions = {
+                        routeMode: Microsoft.Maps.Directions.RouteMode.driving,
+                        maxRoutes: 1,
+                        optimizeWaypoints: true,
+                        routeDraggable:false
+                        // Autres options de requête...
+                      };
 
 
-                var seattleWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: 'Départ' ,location : new Microsoft.Maps.Location(listxCoords[0],listyCoords[0])});
-                directionsManager.addWaypoint(seattleWaypoint);
+                    directionsManager.setRequestOptions(requestOptions)
 
-                var workWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: 'Destination', location: new Microsoft.Maps.Location(listxCoords[1],listyCoords[1]) });
-                directionsManager.addWaypoint(workWaypoint);
-                
+                    // Obtenez l'objet DirectionsRenderOptions.
+                    var renderOptions = directionsManager.getRenderOptions();
+                  
+                    // Désactivez la fonctionnalité de glisser-déposer pour modifier l'itinéraire.
+                    renderOptions.draggableRoutes = false;  
 
-                //Calculate directions.
-                directionsManager.calculateDirections();
-            });
-                    
+                    renderOptions.routeIndex = 0;
+                    directionsManager.setRenderOptions(renderOptions);
 
+
+
+                  });
+                  
                     
                 } 
             }))

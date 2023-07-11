@@ -1,15 +1,21 @@
-var listxCoords = []
-var listyCoords = []
+
+var listCoords = []
+
 var map;
 var directionsManager;
+
+var numberSteps=0;
+var citySteps = []
+
+var totalDistance = 0;
 
 function loadMapScenario() 
 {
        
     map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
         /* No need to set credentials if already passed in URL */
-        center: new Microsoft.Maps.Location(49.182451, -0.374625),
-        zoom: 12
+        center: new Microsoft.Maps.Location(48.86666,  2.333333),
+        zoom: 5
     });
    
     
@@ -33,50 +39,52 @@ function loadMapScenario()
 
         // test
         
-        while(listxCoords.length > 0)
-        {
-            listxCoords.pop();
-        }
+        while(listCoords.lenght > 0)
+        {listCoords.pop();}
 
-        
-        while(listyCoords.length > 0)
-        {
-            listyCoords.pop();
-        }
-
-        listxCoords.push(suggestionResult.location.latitude)
-        listyCoords.push(suggestionResult.location.longitude)
-        
-
-        console.log("coordonénes 1 :",listxCoords[0],',',listyCoords[1])
-
-        //console.log("test : ",listCoords[0])
+        listCoords.push(suggestionResult.location.latitude+','+suggestionResult.location.longitude)
+    
 
         map.setView({ bounds: suggestionResult.bestView });
         var pushpin = new Microsoft.Maps.Pushpin(suggestionResult.location);
         map.entities.push(pushpin);
+        
+        /*
         document.getElementById('printoutPanel').innerHTML =
             'Suggestion: ' + suggestionResult.formattedSuggestion +
             '<br> Lat: ' + suggestionResult.location.latitude +
             '<br> Lon: ' + suggestionResult.location.longitude;
+
+        */
+        citySteps.push(suggestionResult.formattedSuggestion);
+        
+        
     }
+
+
     function selectedSuggestion2(suggestionResult) {
 
-        listxCoords.push(suggestionResult.location.latitude)
-        listyCoords.push(suggestionResult.location.longitude)
-
-
-        console.log("coordonénes 1 :",listxCoords[0],',',listyCoords[1])
+        listCoords.push(suggestionResult.location.latitude+','+suggestionResult.location.longitude)
         
-       // listCoords.push(suggestionResult.location.latitude+','+suggestionResult.location.longitude)
+        console.log(listCoords[1])
+
         //map.entities.clear();
         map.setView({ bounds: suggestionResult.bestView });
         var pushpin = new Microsoft.Maps.Pushpin(suggestionResult.location);
         map.entities.push(pushpin);
-        document.getElementById('printoutPanel2').innerHTML =
+        
+        /*document.getElementById('printoutPanel2').innerHTML =
             'Suggestion: ' + suggestionResult.formattedSuggestion +
             '<br> Lat: ' + suggestionResult.location.latitude +
             '<br> Lon: ' + suggestionResult.location.longitude;
+
+        */
+        console.log("selected.formatted : ");
+        console.log(suggestionResult.formattedSuggestion);
+
+        citySteps.push(suggestionResult.formattedSuggestion);
+        
+        numberSteps+=1;
 
     }
 }
@@ -88,15 +96,15 @@ async function CalculateDistance()
     //listCoords.forEach(val => console.log(val))
     //console.log("end")
 
-    const url = `https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?origins=${listxCoords[0]+','+listyCoords[0]}&destinations=${listxCoords[1]+','+listyCoords[1]}&travelMode=driving&key=Au3StwO6PwFS37gtE-52dLcOhomBX4tBcN_CZo7KZqP82ymvB9WHWh8Sjm2qs-m-`;
+    const url = `https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?origins=${listCoords[0]}&destinations=${listCoords[1]}&travelMode=driving&key=Au3StwO6PwFS37gtE-52dLcOhomBX4tBcN_CZo7KZqP82ymvB9WHWh8Sjm2qs-m-`;
 
-    //console.log(url)
+
+    console.log('\n\n');
+    console.log(url)
 
     // const response = await fetch(url,{method:"GET"})
 
     console.log(url)
-
-
 
     fetch(url)
         .then(response => response.json()
@@ -106,16 +114,22 @@ async function CalculateDistance()
                 const travelDistance = data.resourceSets[0].resources[0].results[0].travelDistance;
                 console.log('Distance entre les deux points :', travelDistance);
 
+                
                 if(travelDistance === -1)
                 {
-                    resultdistance.textContent = "Trajet Impossible !!!";
+
+                    //resultdistance.textContent = "Trajet en avion !!!";
+                    var cord1 = listCoords[0].split(',');
+                    var cord2 = listCoords[1].split(',');
 
 
                     var coords = [
-                        new Microsoft.Maps.Location(listxCoords[0], listyCoords[0]),
-                        new Microsoft.Maps.Location(listxCoords[1], listyCoords[1])
+                        new Microsoft.Maps.Location(cord1[0],cord1[1]),
+                        new Microsoft.Maps.Location(cord2[0],cord2[1])
                     ];
                     
+
+                    console.log("affichage coords");
                     coords.forEach(v => console.log(v));
                     
                     var line = new Microsoft.Maps.Polyline(coords, {
@@ -126,59 +140,90 @@ async function CalculateDistance()
                     
                     map.entities.push(line);
                     
+                    var r = new Route(citySteps[0],citySteps[1],cord1[0],cord1[1],cord2[0],cord2[1]);
+
+                    document.getElementById('stepItinary').innerHTML+=`<br>Étape ${numberSteps} ${citySteps[0]}, ${citySteps[1]}, ${Math.round(r.Distance)} Km`;
+
+                    totalDistance+=Math.round(r.Distance);
+                    
                 }
                 else
                 {
-                    resultdistance.textContent = "Distance entre les villes : " + travelDistance + "km";
-                    
-                    
+
+                    //resultdistance.textContent = "Distance entre les villes : " + travelDistance + "km";
+                                        
                 map.entities.clear()
 
+                totalDistance+=travelDistance;
+
+                
                 Microsoft.Maps.loadModule('Microsoft.Maps.Directions', function () {
                     // Créez une instance du gestionnaire d'itinéraires.
                     directionsManager = new Microsoft.Maps.Directions.DirectionsManager(map);
                   
-                    var seattleWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: 'Départ', location: new Microsoft.Maps.Location(listxCoords[0], listyCoords[0]) });
+                    // location: new Microsoft.Maps.Location(listCoords[0])
+
+                    coordArray = listCoords[0].split(',');
+
+                    var seattleWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: `Départ Étape ${numberSteps}`, location: new Microsoft.Maps.Location(coordArray[0],coordArray[1]) });
                     directionsManager.addWaypoint(seattleWaypoint);
                   
-                    var workWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: 'Destination', location: new Microsoft.Maps.Location(listxCoords[1], listyCoords[1]) });
+                    coordArray = listCoords[1].split(',');
+
+                    var workWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: `Destination Étape ${numberSteps}`, location: new Microsoft.Maps.Location(coordArray[0],coordArray[1]) });
                     directionsManager.addWaypoint(workWaypoint);
-                  
-                    // Calculez les directions.
-                    directionsManager.calculateDirections();
-                  
+
+                    directionsManager.calculateDirections();  
 
                     var requestOptions = {
                         routeMode: Microsoft.Maps.Directions.RouteMode.driving,
                         maxRoutes: 1,
                         optimizeWaypoints: true,
                         routeDraggable:false
-                        // Autres options de requête...
-                      };
+                     };
 
 
                     directionsManager.setRequestOptions(requestOptions)
 
-                    // Obtenez l'objet DirectionsRenderOptions.
                     var renderOptions = directionsManager.getRenderOptions();
                   
-                    // Désactivez la fonctionnalité de glisser-déposer pour modifier l'itinéraire.
                     renderOptions.draggableRoutes = false;  
 
                     renderOptions.routeIndex = 0;
                     directionsManager.setRenderOptions(renderOptions);
 
-
+                    document.getElementById('stepItinary').innerHTML+=`<br>Etape ${numberSteps} : ${citySteps[numberSteps-1]}, ${citySteps[numberSteps]} ${Math.round(travelDistance)} Km.`;
+                  
+                    
+                    var input = document.getElementById('searchBox');
+                    input.value = citySteps[numberSteps];
+                    input.disabled = true;
+        
+                    
+                    var input = document.getElementById('searchBox2');
+                    input.value = "";
+        
+        
+                    listCoords[0] = listCoords[1];
+                    listCoords.length = 1;
 
                   });
                   
-                    
                 } 
+
+                    document.getElementById('totaldistance').textContent = `${Math.round(totalDistance)} Kilomètres`;
+                    
+                
+            
             }))
-        
+
         .catch(error => 
             {
                 console.log(error);
             });
+
+        
+
+           
 
 }

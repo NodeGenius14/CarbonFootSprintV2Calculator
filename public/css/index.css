@@ -62,7 +62,30 @@ footer{
 }
 
 
-button
+h1
 {
-    background-color: #000;
+    text-align: center;
+}
+
+.itinaryContainer
+{
+    width: 100%;
+    height: 500px;
+    background-color: aqua;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+#itinary
+{
+    width: 30%;
+    height: 500px;
+    background-color: rgb(198, 201, 226);
+}
+
+#myMap
+{
+    width: 70%;
+    height: 500px;
 }

@@ -3,33 +3,81 @@
 <head>
     <title>CarbonFootprintCalculator</title>
     <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
-    <style type='text/css'>body{margin:0;padding:0;overflow:hidden;font-family:'Segoe UI',Helvetica,Arial,Sans-Serif}</style>
+    <!--<
+        style type='text/css'>body{margin:0;padding:0;overflow:hidden;font-family:'Segoe UI',Helvetica,Arial,Sans-Serif}</style>
+
+    -->
+
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
 
+    <header>
+        
+        <h1>Carbonfootprint Calculator</h1>
+
+    </header>
     
 
-    <div id='printoutPanel'></div>
-    <div id='printoutPanel2'></div>
-    <div id='searchBoxContainer'><input type='text' id='searchBox'/></div>
-    <div id="searchBoxContainer2">
-        <input type="text" id="searchBox2" placeholder="Search location 2" />
-    </div>
-    <div id="printoutPanel2"></div>
-
-    <button id="calculatedistance" type="button" onclick="CalculateDistance()">Calculate</button>
-
+    <!--    
+    
     <div id="resultdistance"></div>
 
-    <div id='myMap' style='width: 100vw; height: 100vh;'></div>
+    -->
+
+    <div class="itinaryContainer">
+
+        <div id="itinary">
+
+            <p>itinary</p>
+
+
+            <!-- step itinary div-->
+            <div id="stepItinary">
+            </div>
+
+            <!--
+            <div id='printoutPanel'></div>
+            <div id='printoutPanel2'></div>
+            -->
+            <div id='searchBoxContainer'>
+                <input type='text' id='searchBox' placeholder="Ville départ"/></div>
+            <div id="searchBoxContainer2">
+                <input type="text" id="searchBox2" placeholder="Ville étape" />
+            </div>
+            <!--
+            <div id="printoutPanel2"></div>
+            -->
+
+            <button id="calculatedistance" type="button" onclick="CalculateDistance()">Add to itinary</button>
+
+            <p id="totaldistance"></p>
+
+        </div>
+
+        <div id='myMap' ></div>
+
+    </div>
+
+   
 
     
     
 
 <script type='text/javascript' src='map.js'></script>
 
+
+<script type='text/javascript' src='route.js'></script>
+
+
 <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=Au3StwO6PwFS37gtE-52dLcOhomBX4tBcN_CZo7KZqP82ymvB9WHWh8Sjm2qs-m-&callback=loadMapScenario' async defer></script>
 
+
+<footer>
+    <p>here it's the footer</p>
+    
+    <!-- to add : credit... -->
+</footer>
 
 </body>
 

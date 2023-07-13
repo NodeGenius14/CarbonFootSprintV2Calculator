@@ -1,4 +1,3 @@
-
 var listCoords = []
 
 var map;
@@ -10,22 +9,6 @@ var citySteps = []
 var totalDistance = 0;
 
 var travelMode = 1;
-
-function selectTravelMode(travelCode)
-{
-    var buttons = document.querySelectorAll('.travelMode button');
-    buttons.forEach(function(button) {
-        button.classList.remove('selected');
-    });
-
-    var selectedButton = document.querySelector('.travelMode button:nth-child(' + travelCode + ')');
-    selectedButton.classList.add('selected');
-
-
-    travelMode = travelCode;
-    console.log('travelMode is : ',travelMode);
-
-}
 
 function loadMapScenario() 
 {
@@ -82,6 +65,10 @@ function loadMapScenario()
 
     function selectedSuggestion2(suggestionResult) {
 
+
+        document.getElementById('searchBox2').value = suggestionResult.formattedSuggestion;
+
+
         listCoords.push(suggestionResult.location.latitude+','+suggestionResult.location.longitude)
         
         console.log(listCoords[1])
@@ -95,20 +82,91 @@ function loadMapScenario()
             'Suggestion: ' + suggestionResult.formattedSuggestion +
             '<br> Lat: ' + suggestionResult.location.latitude +
             '<br> Lon: ' + suggestionResult.location.longitude;
-
+        
         */
         console.log("selected.formatted : ");
         console.log(suggestionResult.formattedSuggestion);
 
         citySteps.push(suggestionResult.formattedSuggestion);
-        
         numberSteps+=1;
+
+        console.log('fin de fonction')
 
     }
 }
 
 
 
+function selectTravelMode(travelCode)
+{
+    var buttons = document.querySelectorAll('.travelMode button');
+    buttons.forEach(function(button) {
+        button.classList.remove('selected');
+    });
+
+    var selectedButton = document.querySelector('.travelMode button:nth-child(' + travelCode + ')');
+    selectedButton.classList.add('selected');
+
+
+    travelMode = travelCode;
+    console.log('travelMode is : ',travelMode);
+
+}
+
+
+async function DistanceCalculAPI(coord1,coord2)
+{
+
+    const url = `https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?origins=${coord1}&destinations=${coord2}&travelMode=driving&key=Au3StwO6PwFS37gtE-52dLcOhomBX4tBcN_CZo7KZqP82ymvB9WHWh8Sjm2qs-m-`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data =>{
+
+            const travelDistance = data.resourceSets[0].resources[0].results[0].travelDistance;
+
+            //console.log('Distance entre les deux points :', travelDistance);
+
+            return travelDistance;
+
+        })
+        .catch(error => 
+            {
+                console.log(error);
+                return -10;
+            });
+}
+
+
+void function clearMap()
+{
+    map = new Microsoft.Maps.Map();
+}
+
+
+async function functionDisplaySteps()
+{
+
+    var travelDistance;
+
+    if(travelMode === 4)
+    {
+        var r = new Route(citySteps[0],citySteps[1],cord1[0],cord1[1],cord2[0],cord2[1]);
+        travelDistance = r.CalculateDistance();
+        totalDistance+=travelDistance;
+    }
+    else travelDistance = DistanceCalculAPI(listCoords[0],listCoords[1]);
+
+    if(travelDistance === - 10)
+    {
+        // to do later display error message
+        // error with API
+        console.log('');
+    }
+    return;
+
+    
+}
 
 
 async function CalculateDistance()

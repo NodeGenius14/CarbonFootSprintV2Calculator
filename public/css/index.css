@@ -127,3 +127,12 @@ h1
 .travelMode button.selected .circle {
     background-color: black; /* Couleur de fond du cercle */
 }
+
+
+.stepItinary
+{
+    width: 100%;
+    height: 100px;
+
+    background-color: aqua;
+}

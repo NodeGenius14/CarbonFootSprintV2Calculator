@@ -9,6 +9,24 @@ var citySteps = []
 
 var totalDistance = 0;
 
+var travelMode = 1;
+
+function selectTravelMode(travelCode)
+{
+    var buttons = document.querySelectorAll('.travelMode button');
+    buttons.forEach(function(button) {
+        button.classList.remove('selected');
+    });
+
+    var selectedButton = document.querySelector('.travelMode button:nth-child(' + travelCode + ')');
+    selectedButton.classList.add('selected');
+
+
+    travelMode = travelCode;
+    console.log('travelMode is : ',travelMode);
+
+}
+
 function loadMapScenario() 
 {
        
@@ -88,6 +106,9 @@ function loadMapScenario()
 
     }
 }
+
+
+
 
 
 async function CalculateDistance()

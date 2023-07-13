@@ -20,6 +20,8 @@ app.get('/', (__, res) =>
 });
 app.use(express.static(__dirname + '/public/css'));
 app.use(express.static(__dirname + '/src'));
+app.use(express.static('public/img'));
+
 
 app.get("/*", (__, res) =>
 {

@@ -136,3 +136,17 @@ h1
 
     background-color: aqua;
 }
+
+#step
+{
+    border: 1px solid black;
+    margin: 2px;
+    align-items: center;
+    align-content: center;
+}
+
+#step img
+{
+    width: 40px;
+    height: 40px;
+}

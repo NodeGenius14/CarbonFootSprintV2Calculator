@@ -1,4 +1,5 @@
-var listCoords = []
+var CoordDep;
+var CoordArr;
 
 var map;
 var directionsManager;
@@ -39,10 +40,7 @@ function loadMapScenario()
 
         // test
         
-        while(listCoords.lenght > 0)
-        {listCoords.pop();}
-
-        listCoords.push(suggestionResult.location.latitude+','+suggestionResult.location.longitude)
+        CoordDep=(suggestionResult.location.latitude+','+suggestionResult.location.longitude)
     
 
         map.setView({ bounds: suggestionResult.bestView });
@@ -68,10 +66,9 @@ function loadMapScenario()
         document.getElementById('searchBox2').value = suggestionResult.formattedSuggestion;
 
 
-        listCoords.push(suggestionResult.location.latitude+','+suggestionResult.location.longitude)
+        CoordArr=(suggestionResult.location.latitude+','+suggestionResult.location.longitude)
         
-        console.log(listCoords[1])
-
+        
         //map.entities.clear();
         map.setView({ bounds: suggestionResult.bestView });
         var pushpin = new Microsoft.Maps.Pushpin(suggestionResult.location);
@@ -142,8 +139,8 @@ async function functionDisplaySteps()
 {
 
 
-    var cord1 = listCoords[0].split(',');
-    var cord2 = listCoords[1].split(',');
+    var cord1 = CoordDep.split(',');
+    var cord2 = CoordArr.split(',');
 
     console.log('into function display step');
     var travelDistance;
@@ -154,7 +151,7 @@ async function functionDisplaySteps()
         travelDistance = r.calculateDistance();
         totalDistance+=travelDistance;
     }
-    else travelDistance = await DistanceCalculAPI(listCoords[0],listCoords[1]);
+    else travelDistance = await DistanceCalculAPI(CoordDep,CoordArr);
 
     console.log('travelDistance value :',travelDistance);
 
@@ -198,14 +195,14 @@ async function functionDisplaySteps()
             // Créez une instance du gestionnaire d'itinéraires.
             directionsManager = new Microsoft.Maps.Directions.DirectionsManager(map);
           
-            // location: new Microsoft.Maps.Location(listCoords[0])
+            
 
-            coordArray = listCoords[0].split(',');
+            coordArray = CoordDep.split(',');
 
             var seattleWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: `Start Step ${numberSteps}`, location: new Microsoft.Maps.Location(coordArray[0],coordArray[1]) });
             directionsManager.addWaypoint(seattleWaypoint);
           
-            coordArray = listCoords[1].split(',');
+            coordArray = CoordArr.split(',');
 
             var workWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: `End Step ${numberSteps}`, location: new Microsoft.Maps.Location(coordArray[0],coordArray[1]) });
             directionsManager.addWaypoint(workWaypoint);
@@ -232,15 +229,13 @@ async function functionDisplaySteps()
             //document.getElementById('stepItinary').innerHTML+=`<br>Etape ${numberSteps} : ${citySteps[numberSteps-1]}, ${citySteps[numberSteps]} ${Math.round(travelDistance)} Km.`;
             
             var input = document.getElementById('searchBox');
-            input.value = citySteps[numberSteps];
+            input.value = document.getElementById('searchBox2').value;
             input.disabled = true;
         
             var input = document.getElementById('searchBox2');
             input.value = "";
         
-            listCoords[0] = listCoords[1];
-            listCoords.length = 1;
-                    
+            CoordDep = CoordArr;
            
         });
     }
@@ -248,14 +243,13 @@ async function functionDisplaySteps()
     if(travelMode == 3 || travelMode == 4)
     {
         var input = document.getElementById('searchBox');
-        input.value = citySteps[numberSteps];
+        input.value = document.getElementById('searchBox2').value;
         input.disabled = true;
 
         var input = document.getElementById('searchBox2');
         input.value = "";
      
-        listCoords[0] = listCoords[1];
-        listCoords.length = 1;
+        CoordDep = CoordArr;
 
     }
 

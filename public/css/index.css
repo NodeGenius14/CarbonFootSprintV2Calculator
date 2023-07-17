@@ -139,6 +139,7 @@ h1
 
 #step
 {
+    overflow: scroll;
     border: 1px solid black;
     margin: 2px;
     align-items: center;

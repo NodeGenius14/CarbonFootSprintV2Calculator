@@ -68,7 +68,6 @@ function loadMapScenario()
 
         CoordArr=(suggestionResult.location.latitude+','+suggestionResult.location.longitude)
         
-        
         //map.entities.clear();
         map.setView({ bounds: suggestionResult.bestView });
         var pushpin = new Microsoft.Maps.Pushpin(suggestionResult.location);

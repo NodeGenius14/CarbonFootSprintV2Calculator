@@ -3,6 +3,67 @@
     padding: 0;
 }
 
+
+header
+{
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 3s ease;
+
+    display: flex;
+    align-items: center ;
+    justify-content: space-between;
+    width: 100%;
+    height: 10%;
+    
+}
+
+header img
+{
+    width: 30px;
+    height: 30px;
+}
+
+#languages img
+{
+    width: 20px;
+    height: 15px;
+
+    margin: 10px;
+    border: 1px solid black;
+    border-radius: 2px;
+}
+
+
+
+#calculateButton {
+/* Styles de base */
+
+
+font-family: 'Poppins';
+margin: 20px;
+padding: 12px 20px;
+font-size: 16px;
+border: none;
+border-radius: 4px;
+color: #fff;
+cursor: pointer;
+text-align: center;
+text-decoration: none;
+transition: background 0.3s ease;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+/* Dégradé linéaire vert */
+background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+/* Effet au survol */
+#calculateButton:hover {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+}
+
+
 html
 {
     block-size: 100%;
@@ -28,6 +89,7 @@ body{
 }
 
 header{
+    display: flex;
     text-align: center;
     width: 100vw;
     height: 8vh;
@@ -35,6 +97,30 @@ header{
     color: #fff;
     padding-top: 10px;
 }
+
+
+@font-face {
+    font-family: 'Poppins'; /* Nom de la police */
+    src: url('/Poppins-Medium.ttf') format('truetype'); /* Chemin vers le fichier de police */
+  }
+  
+
+h1{
+    font-family: 'Poppins';
+}
+
+p{
+    font-family: 'Poppins';
+    text-align: center;
+}
+
+.container
+{
+    margin: 20px;
+    text-align: center;
+    font-family: 'Poppins';
+}
+
 
 
 #intro
@@ -51,7 +137,6 @@ header{
 
     flex-direction: column;
 
-    height: 100vh;
     min-height: 100%;  
 
 }
@@ -75,7 +160,8 @@ main{
     flex-direction: column;
     justify-content: center;
     width: 100vw;
-    height: 84vh;
+    height: 92vh;
+    transition: opacity 1s ease;
 }
 
 .options{
@@ -113,7 +199,6 @@ main{
 
 
 footer{
-    display: inline-block;
     bottom: 0;
     width: 100vw;
     height: 8vh;
@@ -131,18 +216,21 @@ footer{
 
 h1
 {
+    font-size: calc(20px + 0.5vw);
     text-align: center;
 }
 
 
 .itinaryContainer
 {
+    visibility: hidden;
     width: 100%;
-    height: 500px;
+    height: 0px;
     background-color: aqua;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    transition: opacity 1s ease;
 }
 
 
@@ -224,3 +312,39 @@ h1
     width: 40px;
     height: 40px;
 }
+
+footer
+{
+    height: 10vh;
+}
+
+footer a
+{
+    text-align: center;
+}
+
+/* Ajoutez cette partie dans votre fichier CSS ou dans une balise <style> dans le <head> de votre document HTML */
+
+/* Animation de fondu pour afficher l'itinéraire */
+/* Nouvelle animation de fondu pour afficher l'itinéraire */
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* Appliquer la nouvelle animation de fondu à la classe "fade-in-out" */
+.fade-in-out {
+    animation: fadeInOut 0.5s;
+}
+
+/* Nouvelle animation de glissement pour afficher l'itinéraire */
+@keyframes slideIn {
+    0% { transform: translateY(50px); }
+    100% { transform: translateY(0); }
+}
+
+/* Appliquer la nouvelle animation de glissement à la classe "slide-in" */
+.slide-in {
+    animation: slideIn 0.7s;
+}
+

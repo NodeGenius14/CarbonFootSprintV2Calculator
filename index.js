@@ -8,6 +8,14 @@ const port = process.env.PORT || 3000;
 const lang = process.env.LANG.slice(0, 2);
 const app = express();
 
+
+const path = require('path');
+const fontsPath = path.join(__dirname, 'fonts'); // Chemin vers le dossier des polices
+
+app.use('/fonts', express.static(fontsPath));
+
+
+
 app.get('/', (__, res) =>
 {
 	let indexHTML = fs.readFileSync(__dirname + '/public/html/en/index.html', 'utf-8');
@@ -21,6 +29,7 @@ app.get('/', (__, res) =>
 app.use(express.static(__dirname + '/public/css'));
 app.use(express.static(__dirname + '/src'));
 app.use(express.static('public/img'));
+app.use(express.static('public/fonts'));
 
 
 app.get("/*", (__, res) =>

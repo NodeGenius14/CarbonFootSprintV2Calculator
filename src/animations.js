@@ -24,3 +24,22 @@ function animate() {
 
 // Démarrer l'animation
 animate();
+
+function displayItinary()
+{
+  var doc = document.getElementsByClassName('itinaryContainer')[0]; // Notez que nous utilisons [0] pour accéder au premier élément avec la classe 'itinaryContainer'
+  doc.style.height = '100vh';
+  doc.style.visibility = 'visible';
+
+  document.location.href = '#itinaryContainer';
+
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var doc = document.getElementsByClassName('itinaryContainer')[0];
+  doc.style.height = '100vh';
+  doc.style.visibility = 'visible';
+});
+
+
+

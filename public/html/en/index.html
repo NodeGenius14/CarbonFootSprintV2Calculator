@@ -1,62 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titre de la page</title>
+    <!-- Les balises <meta> ci-dessus spécifient l'encodage de caractères et la configuration de l'affichage -->
 
-
-    <title>CarbonFootprintCalculator</title>
-    
-    <link rel="icon" type="image/x-icon" href="/leaf.png">
-
-    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
-    
-    <!--<
-        style type='text/css'>body{margin:0;padding:0;overflow:hidden;font-family:'Segoe UI',Helvetica,Arial,Sans-Serif}</style>
-    -->
-
+    <!-- Les balises <link> ci-dessous permettent de lier des fichiers CSS -->
+    <link rel="icon" type="image/x-icon" href="leaf.png">
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
+    <!-- Contenu de la page -->
+    <header id="header">
 
-    <header>
-        
-        <h1>Carbonfootprint Calculator</h1>
+        <img src="leaf.png">
 
+        <h1>CarbonFootprint Calculator</h1>
+
+        <div id="languages">
+
+            <a href="#"><img src="france.jpeg"></a>
+            <a href="#"><img src="england.jpg"></a>
+
+        </div>
+        <!-- En-tête de la page (logo, menu, etc.) -->
     </header>
-    
 
-    <div id="intro">
-
-        <h1>Calculate your travel Co2 Carbon Emissions</h1>
-
-        <img  id="ecoAnimation" src="/eco.png" alt="ecoSymbol">
-
+    <main id="main">
+        <!-- Contenu principal de la page -->
+        <h1 id="texte">CarbonFootprintCalculator</h1>
+        <p id="texte2">By Arthur Lecomte and Baptiste Dudonné.</p>
 
         <div class="container">
-            <div class="heading">
-              Counting Upto the Limit
-            </div>
             <div class="counter-container">
               <div class="counter">
-                <img src="https://raw.githubusercontent.com/nemo0/animated-counter/29e12c0cb15e90c27faaef0d83fb2618126067db/icons/iconmonstr-time-19.svg" alt="timer" srcset="" class="icon">
                 <h3 data-target="500000" class="count">0</h3>
-                <h6>Work Hours</h6>
+                <h6>Tons of Co2 Already Calculated</h6>
               </div>
              
               </div>
               </div>
-            
+              <button id="calculateButton" href="#itinaryContainer" onclick="displayItinary()">Start Now !</a>
+    </main>
 
-        <button>Calculate Now</button>
+    <!-- Calculator Part -->
 
-    </div>
-
-    <!--    
-    
-    <div id="resultdistance"></div>
-
-    -->
-
-    <div class="itinaryContainer">
+    <div class="itinaryContainer" id="itinaryContainer">
 
         <div id="itinary">
 
@@ -130,28 +120,28 @@
 
    
 
+
+    <!-- <footer>
+        
+        <a id="contact" href="#">Contact Us.</a>
     
-    
+    </footer> -->
 
-<script type='text/javascript' src='map.js'></script>
+    <!-- Les balises <script> ci-dessous permettent de lier des fichiers JavaScript -->
+    <script src="progressiveText.js"></script>
+
+    <script src="counter.js"></script>
+
+    <script src="fade.js"></script>
+
+    <script type='text/javascript' src='map.js'></script>
+
+    <script type='text/javascript' src='route.js'></script>
 
 
-<script type='text/javascript' src='route.js'></script>
+    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=Au3StwO6PwFS37gtE-52dLcOhomBX4tBcN_CZo7KZqP82ymvB9WHWh8Sjm2qs-m-&callback=loadMapScenario' async defer></script>
 
-<script type="text/javascript" src="counter.js"></script>
- 
-<script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=Au3StwO6PwFS37gtE-52dLcOhomBX4tBcN_CZo7KZqP82ymvB9WHWh8Sjm2qs-m-&callback=loadMapScenario' async defer></script>
-
-<script type="text/javascript" src="animations.js"></script>
-
-<footer>
-    <p>here it's the footer</p>
-    
-    <!-- to add : credit... -->
-</footer>
+    <script type="text/javascript" src="animations.js"></script>
 
 </body>
-
-
-
 </html>

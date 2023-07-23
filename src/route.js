@@ -49,7 +49,7 @@ class Route {
 	  calculateDistance(lat1, lon1, lat2, lon2) {
 		const earthRadius = 6371; // Rayon de la Terre en kilomètres
 	
-		// Conversion des degrés en radians
+		// Conversion d aq	es degrés en radians
 		const lat1Rad = this.LatD * (Math.PI / 180);
 		const lon1Rad = this.longD * (Math.PI / 180);
 		const lat2Rad = this.latA * (Math.PI / 180);

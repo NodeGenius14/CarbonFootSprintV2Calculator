@@ -5,7 +5,9 @@ var map;
 var directionsManager;
 
 var numberSteps=0;
-var citySteps = []
+
+var villeDep;
+var villeArr;
 
 var totalDistance = 0;
 
@@ -38,8 +40,8 @@ function loadMapScenario()
     function selectedSuggestion(suggestionResult) {
         //map.entities.clear();
 
-        // test
-        
+       
+
         CoordDep=(suggestionResult.location.latitude+','+suggestionResult.location.longitude)
     
 
@@ -54,7 +56,7 @@ function loadMapScenario()
             '<br> Lon: ' + suggestionResult.location.longitude;
 
         */
-        citySteps.push(suggestionResult.formattedSuggestion);
+        villeDep = suggestionResult.formattedSuggestion;
         
         
     }
@@ -62,9 +64,7 @@ function loadMapScenario()
 
     function selectedSuggestion2(suggestionResult) {
 
-
         document.getElementById('searchBox2').value = suggestionResult.formattedSuggestion;
-
 
         CoordArr=(suggestionResult.location.latitude+','+suggestionResult.location.longitude)
         
@@ -82,7 +82,7 @@ function loadMapScenario()
         console.log("selected.formatted : ");
         console.log(suggestionResult.formattedSuggestion);
 
-        citySteps.push(suggestionResult.formattedSuggestion);
+        villeArr = suggestionResult.formattedSuggestion;
         numberSteps+=1;
 
         console.log('fin de fonction')
@@ -146,7 +146,7 @@ async function functionDisplaySteps()
 
     if(travelMode === 4)
     {
-        var r = new Route(citySteps[0],citySteps[1],cord1[0],cord1[1],cord2[0],cord2[1]);
+        var r = new Route(villeDep,villeArr,cord1[0],cord1[1],cord2[0],cord2[1]);
         travelDistance = r.calculateDistance();
         totalDistance+=travelDistance;
     }
@@ -177,7 +177,7 @@ async function functionDisplaySteps()
         
         map.entities.push(line);
         
-        var r = new Route(citySteps[0],citySteps[1],cord1[0],cord1[1],cord2[0],cord2[1]);
+        var r = new Route(villeDep,villeArr,cord1[0],cord1[1],cord2[0],cord2[1]);
 
         //document.getElementById('stepItinary').innerHTML+=`<br>Étape ${numberSteps} ${citySteps[0]}, ${citySteps[1]}, ${Math.round(r.Distance)} Km`;
 
@@ -274,6 +274,6 @@ async function functionDisplaySteps()
 
     console.log('urlImage : ',urlImage, 'travelMode : ',travelMode);
 
-    document.getElementById('step').innerHTML += `<br><img src="${urlImage}"><p>Step ${numberSteps} ${citySteps[numberSteps-1]}, ${citySteps[numberSteps]} ${Math.round(travelDistance)} Km.`;
+    document.getElementById('step').innerHTML += `<br><img src="${urlImage}"><p>Step ${numberSteps} ${villeDep}, ${villeArr} ${Math.round(travelDistance)} Km.`;
     
 }

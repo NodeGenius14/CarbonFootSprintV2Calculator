@@ -13,9 +13,14 @@ var totalDistance = 0;
 
 var travelMode = 1;
 
+var totalDistanceDiv = document.getElementById('totaldistance');
+totalDistanceDiv.style.display = "none";
+
+document.getElementById('calculatedistance').disabled = true;
+
 function loadMapScenario() 
 {
-       
+    
     map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
         /* No need to set credentials if already passed in URL */
         center: new Microsoft.Maps.Location(48.86666,  2.333333),
@@ -85,6 +90,8 @@ function loadMapScenario()
         villeArr = suggestionResult.formattedSuggestion;
         numberSteps+=1;
 
+        document.getElementById('calculatedistance').disabled = false;
+
         console.log('fin de fonction')
 
     }
@@ -137,6 +144,9 @@ void function clearMap()
 async function functionDisplaySteps()
 {
 
+
+
+    button = document.getElementById('calculatedistance').disabled = true;
 
     var cord1 = CoordDep.split(',');
     var cord2 = CoordArr.split(',');
@@ -249,7 +259,7 @@ async function functionDisplaySteps()
         input.value = "";
      
         CoordDep = CoordArr;
-
+        CoordArr = null;
     }
 
     var urlImage;
@@ -274,6 +284,16 @@ async function functionDisplaySteps()
 
     console.log('urlImage : ',urlImage, 'travelMode : ',travelMode);
 
-    document.getElementById('step').innerHTML += `<br><img src="${urlImage}"><p>Step ${numberSteps} ${villeDep}, ${villeArr} ${Math.round(travelDistance)} Km.`;
+    document.getElementById('step').innerHTML += `<div class="stepContent"><img src="${urlImage}"><p>Step ${numberSteps} ${villeDep}, ${villeArr} ${Math.round(travelDistance)} Km.</div>`;
+
+    totalDistanceDiv = document.getElementById('totaldistance');
+    if(totalDistanceDiv.style.display === "none")
+    {
+        totalDistanceDiv.style.display = "block";
+        totalDistanceDiv.innerHTML = `<p>Total Distance ${totalDistance} Km.`;
+
+    }
+    total
+
     
 }

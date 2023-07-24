@@ -284,6 +284,12 @@ h1
     width: 40px;
 }
 
+.travelMode button img:hover
+{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+}
+
 .travelMode button.selected img {
     opacity: 1;
     filter: brightness(0.7); /* Rend le bouton plus sombre */
@@ -307,25 +313,35 @@ h1
 
 .itinary
 {
-    
+ 
+    flex-direction: column;
+    justify-content: center; /* Aligne les éléments verticalement au centre */
+    align-items: center; 
     width: 30%;
     background-color: #27ae60;
+    
 }
 
-#stepItinary
-{
-    margin: 10px;
-    width: 200px;
-    height: 100px;
-}
 
 
 #step
 {
+    height: 40%;
+    width: 97%;
+    overflow-y: scroll;
+    background-color: grey;
+    border-radius: 5px;
     border: 1px solid black;
     margin: 2px;
     align-items: center;
     align-content: center;
+
+}
+
+.stepContent
+{
+    display: flex;
+    align-items: center;
 }
 
 #step img

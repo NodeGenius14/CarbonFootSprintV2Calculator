@@ -53,6 +53,8 @@
 
             <h3>Enter your route.</h3>
 
+            <p>Choose your travel mode :</p>
+
             <div class="travelMode">
 
                 <button onclick="selectTravelMode(1)" class="selected" >
@@ -77,11 +79,14 @@
             </div>
                           
                 
-            <div class="searchBox">
-            <div id='searchBoxContainer'>
-                <input type='text' id='searchBox' placeholder="Ville départ"/></div>
+        <div class="searchBox">
+
+                <div id='searchBoxContainer'>
+                    <input type='text' id='searchBox' placeholder="Start Point."/>
+            </div>
+
             <div id="searchBoxContainer2">
-                <input type="text" id="searchBox2" placeholder="Ville étape" />
+                <input type="text" id="searchBox2" placeholder="End Point." />
             </div>
         </div>
 
@@ -96,21 +101,24 @@
         <!-- Partie Calculator -->    
         
 
-        <div id="stepItinary">
+        
             <div id="step">
-               
+               <p>Steps : </p>
             </div>
-        </div>
+        
 
         <div id="totaldistance"></div>
-
+            
         </div>
 
 
-        <div id='myMap' ></div>
+        <div id='myMap' >
 
+        </div>
+
+    </div>
       
-
+</body>
 
     <!-- Les balises <script> ci-dessous permettent de lier des fichiers JavaScript -->
     <script src="progressiveText.js"></script>
@@ -128,5 +136,5 @@
 
     <script type="text/javascript" src="animations.js"></script>
 
-</body>
+
 </html>

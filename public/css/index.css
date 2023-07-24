@@ -322,7 +322,6 @@ h1
 
 #step
 {
-    overflow: scroll;
     border: 1px solid black;
     margin: 2px;
     align-items: center;
@@ -372,3 +371,16 @@ footer a
     animation: slideIn 0.7s;
 }
 
+@media screen and (max-width:600px) {
+    
+    .itinary
+    {
+        width: 100%;
+    }
+
+    #myMap{
+        width: 95%;
+        height: 500px;
+    }
+    
+}

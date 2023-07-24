@@ -90,7 +90,9 @@ function loadMapScenario()
         villeArr = suggestionResult.formattedSuggestion;
         numberSteps+=1;
 
-        document.getElementById('calculatedistance').disabled = false;
+        btn = document.getElementById('calculatedistance');
+        btn.disabled = false;
+        btn.style.backgroundColor = 'green';
 
         console.log('fin de fonction')
 
@@ -144,9 +146,9 @@ void function clearMap()
 async function functionDisplaySteps()
 {
 
-
-
-    button = document.getElementById('calculatedistance').disabled = true;
+    button = document.getElementById('calculatedistance');
+    button.disabled = true;
+    button.style.backgroundColor = '#8bc09e';
 
     var cord1 = CoordDep.split(',');
     var cord2 = CoordArr.split(',');
@@ -198,7 +200,7 @@ async function functionDisplaySteps()
     }
     else 
     {
-        totalDistance+=travelDistance;
+        totalDistance+=Math.round(travelDistance);
     
         Microsoft.Maps.loadModule('Microsoft.Maps.Directions', function () {
             // Créez une instance du gestionnaire d'itinéraires.
@@ -289,11 +291,9 @@ async function functionDisplaySteps()
     totalDistanceDiv = document.getElementById('totaldistance');
     if(totalDistanceDiv.style.display === "none")
     {
-        totalDistanceDiv.style.display = "block";
-        totalDistanceDiv.innerHTML = `<p>Total Distance ${totalDistance} Km.`;
-
+        totalDistanceDiv.style.display = "block";      
     }
-    total
+    totalDistanceDiv.innerHTML = `<p>Total Distance ${totalDistance} Km.`;
 
     
 }

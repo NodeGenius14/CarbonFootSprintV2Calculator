@@ -31,6 +31,8 @@ function displayItinary()
   doc.style.height = '100vh';
   doc.style.visibility = 'visible';
 
+  document.getElementById('footer').style.display = 'block'
+
   document.getElementById('footer').style.visibility = 'visible';
 
   document.location.href = '#itinaryContainer';

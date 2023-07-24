@@ -229,28 +229,34 @@ h1
 
 #itinaryContainer
 {
+    border-top: 2px solid black;
     visibility: hidden;
     width: 100%;
     height: 0px;
-    background-color: aqua;
+    
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     flex-direction: row;
+    
     transition: opacity 1s ease;
 }
 
 
-
+.itinary h3
+{
+    margin: 10px;
+}
 
 
 #myMap
 {
-    width: 65%;
-    margin: 10px;
-    height: 95vh;
+    width: 100%;
+    /* margin: 10px; */
+    height: 100vh;
 
-    border: 5px solid white;
-    border-radius: 3px;
+    /*
+    border: 5px solid rgb(2, 2, 2);
+    border-radius: 3px; */
 
 
 }
@@ -318,7 +324,7 @@ h1
     justify-content: center; /* Aligne les éléments verticalement au centre */
     align-items: center; 
     width: 30%;
-    background-color: #27ae60;
+    background-color: #8c928f;
     
 }
 
@@ -335,13 +341,15 @@ h1
     margin: 2px;
     align-items: center;
     align-content: center;
-
 }
 
 .stepContent
 {
     display: flex;
     align-items: center;
+    justify-content: center;
+    margin-top:10px;
+    margin-bottom: 10px;
 }
 
 #step img
@@ -387,8 +395,19 @@ footer a
     animation: slideIn 0.7s;
 }
 
+#totaldistance
+{
+    margin: 10px;
+}
+
 @media screen and (max-width:600px) {
     
+
+    .itinaryContainer
+    {
+        flex-wrap: wrap;
+    }
+
     .itinary
     {
         width: 100%;
@@ -399,4 +418,9 @@ footer a
         height: 500px;
     }
     
+}
+
+footer
+{
+    visibility: hidden;
 }

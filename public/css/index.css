@@ -427,21 +427,29 @@ transform: scale(1.05) rotate(-1deg);
 @media screen and (max-width:600px) {
     
 
-    .itinaryContainer
+    #itinaryContainer
     {
-        flex-wrap: wrap;
+        flex-direction: column;
+        height: 100vh;
+        background-color: #000;
     }
 
     .itinary
     {
+        height: 50vh;
         width: 100%;
+        background-color: #27ae60;
     }
 
     #myMap{
-        width: 95%;
-        height: 500px;
+        width: 100%;
+        height: 50vh;
     }
     
+    #step
+    {
+        height: 16vh;
+    }
 }
 
 footer

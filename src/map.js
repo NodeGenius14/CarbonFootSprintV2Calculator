@@ -132,13 +132,7 @@ async function functionDisplaySteps()
     console.log('into function display step');
     var travelDistance;
 
-    if(travelMode === 4)
-    {
-        var r = new Route(villeDep,villeArr,cord1[0],cord1[1],cord2[0],cord2[1]);
-        travelDistance = r.calculateDistance();
-        totalDistance+=Math.round(travelDistance);
-    }
-    else travelDistance = await DistanceCalculAPI(CoordDep,CoordArr);
+    travelDistance = await DistanceCalculAPI(CoordDep,CoordArr);
 
     console.log('travelDistance value :',travelDistance);
 

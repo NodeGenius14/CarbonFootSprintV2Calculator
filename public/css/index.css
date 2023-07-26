@@ -326,6 +326,28 @@ h1
     margin: 10px;
 }
 
+/* Styles de base pour un input */
+.itinaryContainer input {
+    padding: 6px; /* Espace à l'intérieur de l'input */
+    border: 1px solid #ccc; /* Bordure */
+    border-radius: 5px; /* Coins arrondis */
+    font-size: 14px; /* Taille de police */
+  }
+  
+  /* Style lorsque l'input a le focus */
+  .itinaryContainer input:focus {
+    outline: none; /* Supprimer le contour par défaut du focus */
+    border-color: #007bff; /* Couleur de la bordure lorsque l'input a le focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Ombre légère */
+  }
+  
+  /* Style lorsque l'input est désactivé */
+  .itinaryContainer input:disabled {
+    opacity: 0.6; /* Opacité réduite pour l'input désactivé */
+    cursor: not-allowed; /* Curseur en forme d'interdiction */
+  }
+  
+
 
 .itinaryContainer button
 {

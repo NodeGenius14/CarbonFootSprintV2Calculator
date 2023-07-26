@@ -18,6 +18,8 @@ totalDistanceDiv.style.display = "none";
 
 document.getElementById('calculatedistance').disabled = true;
 
+var pushpins = []
+
 function loadMapScenario() 
 {
     
@@ -43,60 +45,31 @@ function loadMapScenario()
     });
 
     function selectedSuggestion(suggestionResult) {
-        //map.entities.clear();
-
-       
-
-        CoordDep=(suggestionResult.location.latitude+','+suggestionResult.location.longitude)
-    
-
+        CoordDep = suggestionResult.location.latitude + ',' + suggestionResult.location.longitude;
         map.setView({ bounds: suggestionResult.bestView });
         var pushpin = new Microsoft.Maps.Pushpin(suggestionResult.location);
-        map.entities.push(pushpin);
-        
-        /*
-        document.getElementById('printoutPanel').innerHTML =
-            'Suggestion: ' + suggestionResult.formattedSuggestion +
-            '<br> Lat: ' + suggestionResult.location.latitude +
-            '<br> Lon: ' + suggestionResult.location.longitude;
-
-        */
+        pushpins.push(pushpin);
+        map.entities.push(pushpins[pushpins.length - 1]);
         villeDep = suggestionResult.formattedSuggestion;
-        
-        
     }
-
 
     function selectedSuggestion2(suggestionResult) {
-
         document.getElementById('searchBox2').value = suggestionResult.formattedSuggestion;
-
-        CoordArr=(suggestionResult.location.latitude+','+suggestionResult.location.longitude)
-        
-        //map.entities.clear();
+        CoordArr = suggestionResult.location.latitude + ',' + suggestionResult.location.longitude;
         map.setView({ bounds: suggestionResult.bestView });
         var pushpin = new Microsoft.Maps.Pushpin(suggestionResult.location);
-        map.entities.push(pushpin);
-        
-        /*document.getElementById('printoutPanel2').innerHTML =
-            'Suggestion: ' + suggestionResult.formattedSuggestion +
-            '<br> Lat: ' + suggestionResult.location.latitude +
-            '<br> Lon: ' + suggestionResult.location.longitude;
-        
-        */
+        pushpins.push(pushpin);
+        map.entities.push(pushpins[pushpins.length - 1]);
         console.log("selected.formatted : ");
         console.log(suggestionResult.formattedSuggestion);
-
         villeArr = suggestionResult.formattedSuggestion;
-        numberSteps+=1;
-
-        btn = document.getElementById('calculatedistance');
+        numberSteps += 1;
+        var btn = document.getElementById('calculatedistance');
         btn.disabled = false;
         btn.style.backgroundColor = 'green';
-
-        console.log('fin de fonction')
-
+        console.log('fin de fonction');
     }
+
 }
 
 
@@ -182,6 +155,10 @@ async function functionDisplaySteps()
         {
             console.log('route impossible by train!');
             document.getElementById('errorLabel').textContent = 'Error !, you can\'t use this travelMode for this route.';
+            dernierPushpin = pushpins.pop(); // Supprimer le dernier pushpin
+            avantDernierPushpin = pushpins.pop(); // Supprimer le deuxième dernier pushpin
+            map.entities.remove(dernierPushpin); // Supprimer le dernier pushpin de la carte
+            map.entities.remove(avantDernierPushpin); // Supprimer le deuxième dernier pushpin de la carte
             return;
 
         }
@@ -209,6 +186,10 @@ async function functionDisplaySteps()
         if(travelDistance === -1)
         {
             document.getElementById('errorLabel').textContent = 'Error !, you can\'t use this travelMode for this route.';
+            dernierPushpin = pushpins.pop(); // Supprimer le dernier pushpin
+            avantDernierPushpin = pushpins.pop(); // Supprimer le deuxième dernier pushpin
+            map.entities.remove(dernierPushpin); // Supprimer le dernier pushpin de la carte
+            map.entities.remove(avantDernierPushpin); // Supprimer le deuxième dernier pushpin de la carte
             return;
         }
 

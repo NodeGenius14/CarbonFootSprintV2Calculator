@@ -146,6 +146,9 @@ void function clearMap()
 async function functionDisplaySteps()
 {
 
+
+    document.getElementById('errorLabel').textContent = null;
+
     button = document.getElementById('calculatedistance');
     button.disabled = true;
     button.style.backgroundColor = '#8bc09e';
@@ -160,19 +163,12 @@ async function functionDisplaySteps()
     {
         var r = new Route(villeDep,villeArr,cord1[0],cord1[1],cord2[0],cord2[1]);
         travelDistance = r.calculateDistance();
-        totalDistance+=travelDistance;
+        totalDistance+=Math.round(travelDistance);
     }
     else travelDistance = await DistanceCalculAPI(CoordDep,CoordArr);
 
     console.log('travelDistance value :',travelDistance);
 
-    if(travelDistance === - 10)
-    {
-        // to do later display error message
-        // error with API
-        console.log('');
-        return;
-    }
     
     var coords = [
         new Microsoft.Maps.Location(cord1[0],cord1[1]),
@@ -181,6 +177,15 @@ async function functionDisplaySteps()
 
     if(travelMode === 3 || travelMode === 4 )
     {
+
+        if(travelMode === 3 && travelDistance === -1)
+        {
+            console.log('route impossible by train!');
+            document.getElementById('errorLabel').textContent = 'Error !, you can\'t use this travelMode for this route.';
+            return;
+
+        }
+
         var line = new Microsoft.Maps.Polyline(coords, {
             strokeColor: 'red',
             strokeThickness: 3,
@@ -200,6 +205,13 @@ async function functionDisplaySteps()
     }
     else 
     {
+
+        if(travelDistance === -1)
+        {
+            document.getElementById('errorLabel').textContent = 'Error !, you can\'t use this travelMode for this route.';
+            return;
+        }
+
         totalDistance+=Math.round(travelDistance);
     
         Microsoft.Maps.loadModule('Microsoft.Maps.Directions', function () {

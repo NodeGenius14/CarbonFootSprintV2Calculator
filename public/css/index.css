@@ -68,6 +68,12 @@ background: linear-gradient(135deg, #2ecc71, #27ae60);
     background: linear-gradient(135deg, #27ae60, #2ecc71);
 }
 
+#errorLabel
+{
+    font-family: 'Poppins';
+    text-align: center;
+}
+
 
 html
 {
@@ -160,6 +166,11 @@ p{
 }
 
 main{
+
+    /* test*/
+    scroll-snap-type: start;
+    scroll-snap-stop: always;
+
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -229,6 +240,10 @@ h1
 
 #itinaryContainer
 {
+
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+
     border-top: 2px solid black;
     visibility: hidden;
     width: 100%;

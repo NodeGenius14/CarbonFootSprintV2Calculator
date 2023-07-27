@@ -13,6 +13,8 @@ var totalDistance = 0;
 
 var travelMode = 1;
 
+var AutoSuggest = [];   
+
 var totalDistanceDiv = document.getElementById('totaldistance');
 totalDistanceDiv.style.display = "none";
 
@@ -37,30 +39,34 @@ function loadMapScenario()
         var manager = new Microsoft.Maps.AutosuggestManager(options);
         var manager2 = new Microsoft.Maps.AutosuggestManager(options);
         manager.attachAutosuggest('#searchBox', '#searchBoxContainer', selectedSuggestion);
-        manager2.attachAutosuggest('#searchBox2', '#searchBoxContainer2', selectedSuggestion2);
+        
+        manager2.attachAutosuggest('#searchBox2', '#searchBoxContainer', selectedSuggestion);
 
+        AutoSuggest.push(manager);
+        AutoSuggest.push(manager2);
         
 
 
     });
 
-    function selectedSuggestion(suggestionResult) {
+    function selectedSuggestion(suggestionResult) 
+    {
+        if (CoordDep == null)
+        {
         CoordDep = suggestionResult.location.latitude + ',' + suggestionResult.location.longitude;
-        map.setView({ bounds: suggestionResult.bestView });
         var pushpin = new Microsoft.Maps.Pushpin(suggestionResult.location);
         pushpins.push(pushpin);
         map.entities.push(pushpins[pushpins.length - 1]);
         villeDep = suggestionResult.formattedSuggestion;
-    }
-
-    function selectedSuggestion2(suggestionResult) {
-        document.getElementById('searchBox2').value = suggestionResult.formattedSuggestion;
-        CoordArr = suggestionResult.location.latitude + ',' + suggestionResult.location.longitude;
         map.setView({ bounds: suggestionResult.bestView });
+        }
+        else
+        {
+        CoordArr = suggestionResult.location.latitude + ',' + suggestionResult.location.longitude;
         var pushpin = new Microsoft.Maps.Pushpin(suggestionResult.location);
         pushpins.push(pushpin);
         map.entities.push(pushpins[pushpins.length - 1]);
-        console.log("selected.formatted : ");
+            ("selected.formatted : ");
         console.log(suggestionResult.formattedSuggestion);
         villeArr = suggestionResult.formattedSuggestion;
         numberSteps += 1;
@@ -68,11 +74,24 @@ function loadMapScenario()
         btn.disabled = false;
         btn.style.backgroundColor = 'green';
         console.log('fin de fonction');
+        map.setView({ bounds: suggestionResult.bestView });
+        }
     }
+
+
 
 }
 
 
+function attachAutosuggestToInput(inputId, containerId) {
+    var options = {
+        maxResults: 4,
+        map: map
+    };
+    var manager = new Microsoft.Maps.AutosuggestManager(options);
+    manager.attachAutosuggest('#' + inputId, '#' + containerId, selectedSuggestion);
+    AutoSuggest.push(manager); // Ajouter le gestionnaire d'autosuggestion au tableau AutoSuggest
+}
 
 function selectTravelMode(travelCode)
 {
@@ -113,6 +132,85 @@ async function DistanceCalculAPI(coord1, coord2) {
 void function clearMap()
 {
     map = new Microsoft.Maps.Map();
+}
+
+/*
+function createTextInput() {
+    // Créer un nouvel élément input de type "text"
+    var inputElement = document.createElement("input");
+    inputElement.type = "text";
+    inputElement.id = "searchBox" + (AutoSuggest.length+1); // Changer l'ID pour qu'il soit unique
+    console.log('longueur de ' + AutoSuggest.length);
+    
+    // Ajouter des attributs et des styles si nécessaire
+    inputElement.placeholder = "Enter a city";
+  
+    // Récupérer le conteneur où l'on veut insérer l'input
+    var container = document.getElementById("inputContainer");
+  
+    // Ajouter l'input à l'intérieur du conteneur
+    container.appendChild(inputElement);
+  
+    // Créer un nouvel autosuggest manager pour le nouvel input
+    var options = {
+        maxResults: 4,
+        map: map
+    };
+    var manager3 = new Microsoft.Maps.AutosuggestManager(options);
+    manager.attachAutosuggest('#' + inputElement.id, '#searchBoxContainer', selectedSuggestion);
+    AutoSuggest.push(manager3); // Ajouter le gestionnaire d'autosuggestion au tableau AutoSuggest
+  }
+  */
+
+
+  function createTextInput() {
+    // Créer un nouvel élément input de type "text"
+    var inputElement = document.createElement("input");
+    inputElement.type = "text";
+    inputElement.id = "searchBox" + (AutoSuggest.length+1); // Changer l'ID pour qu'il soit unique
+    
+    // Ajouter des attributs et des styles si nécessaire
+    inputElement.placeholder = "Enter a city";
+  
+    // Récupérer le conteneur où l'on veut insérer l'input
+    var container = document.getElementById("inputContainer");
+  
+    // Ajouter l'input à l'intérieur du conteneur
+    container.appendChild(inputElement);
+  
+    // Appeler la fonction d'attachement de l'autosuggestion pour le nouvel input
+    attachAutosuggestToInput(inputElement.id, "searchBoxContainer");
+    initializeAutosuggest(inputElement.id);
+}
+  
+
+function initializeAutosuggest(inputId) {
+    const suggestionList = document.getElementById("suggestionList");
+    const inputElement = document.getElementById(inputId);
+
+    // Créez un nouvel objet AutoSuggest pour la saisie automatique
+    const autosuggestManager = new window.Microsoft.Maps.AutosuggestManager({ map: null });
+
+    // Événement de suggestion
+    autosuggestManager.addEventListener('autosuggest', function (event) {
+        suggestionList.innerHTML = '';
+        const suggestions = event.result.suggestions;
+        suggestions.forEach(function (suggestion) {
+            const listItem = document.createElement('li');
+            listItem.textContent = suggestion.formattedSuggestion;
+            suggestionList.appendChild(listItem);
+        });
+    });
+
+    // Attachez l'événement de saisie pour mettre à jour les suggestions
+    inputElement.addEventListener('input', function () {
+        const query = inputElement.value;
+        if (query.length > 0) {
+            autosuggestManager.getSuggestions(query);
+        } else {
+            suggestionList.innerHTML = '';
+        }
+    });
 }
 
 
@@ -211,7 +309,8 @@ async function functionDisplaySteps()
                 routeMode: Microsoft.Maps.Directions.RouteMode.driving,
                 maxRoutes: 1,
                 optimizeWaypoints: true,
-                routeDraggable:false
+                routeDraggable:false,
+                setMapBestView: true
              };
 
 
@@ -226,29 +325,30 @@ async function functionDisplaySteps()
 
             //document.getElementById('stepItinary').innerHTML+=`<br>Etape ${numberSteps} : ${citySteps[numberSteps-1]}, ${citySteps[numberSteps]} ${Math.round(travelDistance)} Km.`;
             
-            var input = document.getElementById('searchBox');
-            input.value = document.getElementById('searchBox2').value;
-            input.disabled = true;
+           document.getElementById('searchBox').disabled = true;
+           document.getElementById('searchBox2').disabled = true;
+            
         
-            var input = document.getElementById('searchBox2');
-            input.value = "";
+            
         
             CoordDep = CoordArr;
+
+            createTextInput();
            
         });
     }
 
     if(travelMode == 3 || travelMode == 4)
     {
-        var input = document.getElementById('searchBox');
-        input.value = document.getElementById('searchBox2').value;
-        input.disabled = true;
+        document.getElementById('searchBox').disabled = true;
+        document.getElementById('searchBox2').disabled = true;
+            
+        
+            
+        
+            CoordDep = CoordArr;
 
-        var input = document.getElementById('searchBox2');
-        input.value = "";
-     
-        CoordDep = CoordArr;
-        CoordArr = null;
+            createTextInput();
     }
 
     var urlImage;
@@ -284,3 +384,4 @@ async function functionDisplaySteps()
 
     
 }
+

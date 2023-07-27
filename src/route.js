@@ -73,6 +73,3 @@ class Route {
 	
 }	
   
-const test = new Route("Paris", "Lyon", 2.3488, 48.8534, 4.8357, 45.7640);
-
-	console.log(test.Distance);

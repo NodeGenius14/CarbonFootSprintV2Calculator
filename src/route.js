@@ -38,6 +38,18 @@ class Route {
 	{
 		return this.distance;
 	}
+	set setVilleA(villeA)
+	{
+		this.villeA = villeA;
+	}
+	set setLatitudeA(latitudeA)
+	{
+		this.latitudeA = latitudeA;
+	}
+	set setLongitudeA(longitudeA)
+	{
+		this.longitudeA = longitudeA;
+	}
 	
 	 degToRad(degrees) 
 	{

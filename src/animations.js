@@ -1,3 +1,4 @@
+/*
 // Récupérer l'élément de l'image
 var image = document.getElementById("ecoAnimation");
 
@@ -24,7 +25,7 @@ function animate() {
 
 // Démarrer l'animation
 animate();
-
+*/
 function displayItinary()
 {
   var doc = document.getElementsByClassName('itinaryContainer')[0]; // Notez que nous utilisons [0] pour accéder au premier élément avec la classe 'itinaryContainer'
@@ -46,6 +47,4 @@ document.addEventListener('DOMContentLoaded', function() {
   doc.style.height = '100vh';
   doc.style.visibility = 'visible';
 });
-
-
 

@@ -1,0 +1,41 @@
+
+article
+{
+
+    display: flex;
+
+    margin-top: 20px;
+    margin-bottom: 100px;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    border-top : 2px solid black;
+    border-bottom: 2px solid black;
+    height: 500px;
+
+    align-items: center;
+    justify-content: space-around;
+    
+    
+}
+
+.map
+{
+    width: 40%;
+    height: 80%;
+    margin: 20px;
+    border: 1px solid black;
+}
+
+
+.detail 
+{
+
+    width: 40%;
+    height: 80%;
+    margin: 20px;
+    border: 1px solid black;
+    
+    text-align: center;
+    
+}
+

@@ -7,36 +7,36 @@ class Route {
 		this.latA = latA;
 		this.longA = longA;
 		
-		this.distance = this.calculateDistance(latD, longD, latA, longA);
+		//this.distance = ;
 	}
 
-	get VilleD() 
+	get getVilleD() 
 	{
 		return this.villeD;
 	}
-	get VilleA()
+	get getVilleA()
 	{
 		return this.villeA;
 	}
-	get LongD()
+	get getLongD()
 	{
 		return this.longD;
 	}
-	get LatD()
+	get getLatD()
 	{
 		return this.latD;
 	}
-	get LongA()
+	get getLongA()
 	{
 		return this.longA;
 	}
-	get LatA()
+	get getLatA()
 	{
 		return this.latA;
 	}
-	get Distance()
+	get getDistance()
 	{
-		return this.distance;
+		return this.calculateDistance(latD, longD, latA, longA);
 	}
 	set setVilleA(villeA)
 	{
@@ -44,11 +44,11 @@ class Route {
 	}
 	set setLatitudeA(latitudeA)
 	{
-		this.latitudeA = latitudeA;
+		this.latA = latitudeA;
 	}
 	set setLongitudeA(longitudeA)
 	{
-		this.longitudeA = longitudeA;
+		this.longA = longitudeA;
 	}
 	
 	 degToRad(degrees) 

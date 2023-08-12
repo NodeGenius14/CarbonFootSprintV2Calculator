@@ -56,16 +56,19 @@ function loadMapScenario()
         else
         {
          
-            console.log('coord arr :',CoordArr);
+            
 
             CoordArr = suggestionResult.location.latitude + ',' + suggestionResult.location.longitude;
+            console.log('coord arr :',CoordArr);
 			tabRoute[numberSteps].setVilleA = suggestionResult.formattedSuggestion;
             tabRoute[numberSteps].setLatitudeA = suggestionResult.location.latitude;
-            tabRoute[numberSteps].setLongitudeA  = suggestionResult.location.longitude;
+            tabRoute[numberSteps].setLongitudeA = suggestionResult.location.longitude;
+			console.log('ville A :',tabRoute[numberSteps].getVilleA);
+			console.log('lat A :',tabRoute[numberSteps].getLatA);
+			console.log('long A :',tabRoute[numberSteps].getLongA);
+			console.log(numberSteps)
 
-            console.log('nouvelles coordonnées :',tabRoute[numberSteps].latA,tabRoute[numberSteps].longA)
-
-            numberSteps += 1;
+            
             var btn = document.getElementById('calculatedistance');
             btn.disabled = false;
             btn.style.backgroundColor = 'green';
@@ -124,9 +127,11 @@ async function functionDisplaySteps()
     button.disabled = true;
     button.style.backgroundColor = '#8bc09e';
 
-    console.log("coords : ",)
-
-    travelDistance = await DistanceCalculAPI((tabRoute[numberSteps-1].latD+''+tabRoute[numberSteps-1].longD),(tabRoute[numberSteps-1].latA+''+tabRoute[numberSteps-1].longA))
+    console.log("coords : ",);
+	console.log('Nombre d\'étapes :',numberSteps);
+	console.log('Coordonnées de départ :',tabRoute[numberSteps].getLatD,tabRoute[numberSteps].getLongD);
+	console.log('Coordonnées d\'arrivée :',tabRoute[numberSteps].getLatA,tabRoute[numberSteps].getLongA);
+    travelDistance = await DistanceCalculAPI((tabRoute[numberSteps].getLatD+','+tabRoute[numberSteps].getLongD),(tabRoute[numberSteps].getLatA+','+tabRoute[numberSteps].getLongA))
 
     if(travelMode === 3 || travelMode === 4)
     {
@@ -160,7 +165,7 @@ async function functionDisplaySteps()
     }
     else
     {
-        tabRoute[numberSteps-1].distance = travelDistance;
+        tabRoute[numberSteps].distance = travelDistance;
         
         totalDistance += Math.round(travelDistance);
   
@@ -197,6 +202,8 @@ async function functionDisplaySteps()
     
           CoordDep = CoordArr;
     
+		  if (travelDistance > 0) {numberSteps++}
+		  
           createTextInput();
         });
     }
@@ -219,8 +226,9 @@ async function functionDisplaySteps()
   
     console.log('urlImage:', urlImage, 'travelMode:', travelMode);
   
-    document.getElementById('step').innerHTML += `<div class="stepContent"><img src="${urlImage}"><p>Step ${numberSteps} ${tabRoute[numberSteps-1].villeD}, ${tabRoute[numberSteps-1].villeA} ${Math.round(tabRoute[numberSteps-1].distance)} Km.</div>`;
+    document.getElementById('step').innerHTML += `<div class="stepContent"><img src="${urlImage}"><p>Step ${numberSteps+1} ${tabRoute[numberSteps].getVilleD}, ${tabRoute[numberSteps].getVilleA} ${Math.round(tabRoute[numberSteps].distance)} Km.</div>`;
   
+	totalDistanceDiv = document.getElementById('totaldistance');
     totalDistanceDiv.style.display = "block";
     totalDistanceDiv.innerHTML = `<p>Total Distance ${totalDistance} Km.`;
   

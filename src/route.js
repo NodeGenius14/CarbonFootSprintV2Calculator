@@ -36,8 +36,13 @@ class Route {
 	}
 	get getDistance()
 	{
-		return this.calculateDistance(latD, longD, latA, longA);
+		return this.distance;
 	}
+	set setDistance(distance)
+	{
+		this.distance = distance;
+	}
+
 	set setVilleA(villeA)
 	{
 		this.villeA = villeA;
@@ -51,6 +56,7 @@ class Route {
 		this.longA = longitudeA;
 	}
 	
+	
 	 degToRad(degrees) 
 	{
 		return degrees * (Math.PI / 180);
@@ -58,7 +64,7 @@ class Route {
 	// Method
 	
 
-	  calculateDistance(lat1, lon1, lat2, lon2) {
+	  calculateDistance() {
 		const earthRadius = 6371; // Rayon de la Terre en kilomètres
 	
 		// Conversion d aq	es degrés en radians
@@ -76,7 +82,8 @@ class Route {
 		const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 		const distance = earthRadius * c;
 	
-		return Math.round(distance);
+		this.distance =  Math.round(distance);
+		console.log('Distance :'+ this.distance); 
 	}
 	
 	 

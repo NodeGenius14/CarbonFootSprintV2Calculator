@@ -10,7 +10,11 @@ var numberSteps = 0;
 
 var totalDistance = 0;
 
-
+var optionAutoSuggest =
+{
+	maxResults: 4,
+	map: map
+}
 function loadMapScenario() 
 {
 		
@@ -24,56 +28,52 @@ function loadMapScenario()
 			
 	Microsoft.Maps.loadModule('Microsoft.Maps.AutoSuggest', function () 
 	{
-		var options = 
-		{
-			maxResults: 4,
-			map: map
-		};
+		
 		if (tabAutoSuggest.length == 0)
 		{
-			tabAutoSuggest.push(new Microsoft.Maps.AutosuggestManager(options));
-			tabAutoSuggest.push(new Microsoft.Maps.AutosuggestManager(options));
+			tabAutoSuggest.push(new Microsoft.Maps.AutosuggestManager(optionAutoSuggest));
+			tabAutoSuggest.push(new Microsoft.Maps.AutosuggestManager(optionAutoSuggest));
 			tabAutoSuggest[0].attachAutosuggest('#searchBox0', '#searchBoxContainer', selectedSuggestion);
 			tabAutoSuggest[1].attachAutosuggest('#searchBox1', '#searchBoxContainer', selectedSuggestion);
 			
 		}
-		else
-	{
-		tabAutoSuggest.push(new Microsoft.Maps.AutosuggestManager(options));
-		tabAutoSuggest[tabAutoSuggest.length - 1].attachAutosuggest('#searchBox' + (tabAutoSuggest.length - 1), '#searchBoxContainer', selectedSuggestion);
-	}
 
 
 	});
 	
 
-	function selectedSuggestion(suggestionResult) 
+	
+
+
+}
+function selectedSuggestion(suggestionResult) 
 		{
 		
 		tabPushpins.push(new Microsoft.Maps.Pushpin(suggestionResult.location) );
 		map.entities.push(tabPushpins[tabPushpins.length - 1]);
-				if (tabRoute.length === 0 )
+				if (tabRoute.length === 0 || CoordArr === null)
 				{
 					if (CoordDep === null)
-			tabRoute.push(new Route(suggestionResult.formattedSuggestion,null,suggestionResult.location.latitude,suggestionResult.location.longitude,null,null))
+			{
+				tabRoute.push(new Route(suggestionResult.formattedSuggestion,null,suggestionResult.location.latitude,suggestionResult.location.longitude,null,null))
 				CoordDep = suggestionResult.location.latitude + ',' + suggestionResult.location.longitude;
 				villeDep = suggestionResult.formattedSuggestion;
 				console.log("Coord Dep : ",CoordDep);
-				
-				}
+			}
 				else
 				{
 				 
 						
 
-						CoordArr = suggestionResult.location.latitude + ',' + suggestionResult.location.longitude;
-			tabRoute[numberSteps].setVilleA = suggestionResult.formattedSuggestion;
-						tabRoute[numberSteps].setLatitudeA = suggestionResult.location.latitude;
-						tabRoute[numberSteps].setLongitudeA = suggestionResult.location.longitude;
-			console.log('ville A :',tabRoute[numberSteps].getVilleA);
-			console.log('lat A :',tabRoute[numberSteps].getLatA);
-			console.log('long A :',tabRoute[numberSteps].getLongA);
-			console.log(numberSteps)
+					CoordArr = suggestionResult.location.latitude + ',' + suggestionResult.location.longitude;
+					tabRoute[numberSteps].setVilleA = suggestionResult.formattedSuggestion;
+					tabRoute[numberSteps].setLatitudeA = suggestionResult.location.latitude;
+					tabRoute[numberSteps].setLongitudeA = suggestionResult.location.longitude;
+
+					console.log('ville A :',tabRoute[numberSteps].getVilleA);
+					console.log('lat A :',tabRoute[numberSteps].getLatA);
+					console.log('long A :',tabRoute[numberSteps].getLongA);
+					console.log(numberSteps);
 
 						
 						var btn = document.getElementById('calculatedistance');
@@ -81,12 +81,19 @@ function loadMapScenario()
 						btn.style.backgroundColor = 'green';
 						console.log('fin de fonction');
 				}
+				
+				}
+				else
+				{
+					console.log("Dans le else")
+					villeDep = tabRoute[tabRoute.length-1].getVilleA;
+					latDep   = tabRoute[tabRoute.length-1].getLatA;
+					longDep  = tabRoute[tabRoute.length-1].getLongA;
+
+					tabRoute.push(new Route(villeDep,suggestionResult.formattedSuggestion,latDep,longDep,suggestionResult.location.latitude,suggestionResult.location.longitude))
+				}
 		map.setView({ bounds: suggestionResult.bestView });
 		}
-
-
-}
-
 
 function selectTravelMode(travelCode)
 {
@@ -124,6 +131,24 @@ async function DistanceCalculAPI(coord1, coord2) {
 	}
 	}
 
+	function createTextInput() 
+		{
+			const inputElement = document.createElement("input");
+			inputElement.type = "search";
+			inputElement.id = "searchBox" + (tabAutoSuggest.length);
+			inputElement.placeholder = "Enter a city";
+		  
+			const container = document.getElementById("searchBoxContainer");
+			container.appendChild(inputElement);
+		  
+			attachAutosuggestToInput(inputElement.id);
+		  }
+
+		function attachAutosuggestToInput(inputId) {
+			const manager = new Microsoft.Maps.AutosuggestManager(optionAutoSuggest);
+			manager.attachAutosuggest('#' + inputId, '#searchBoxContainer', selectedSuggestion);
+			tabAutoSuggest.push(manager);
+		  }
 
 
 async function functionDisplaySteps()
@@ -143,17 +168,21 @@ async function functionDisplaySteps()
 		if(travelMode === 3 || travelMode === 4)
 		{
 				// on part du principe que si trajet impossible en voiture alors impossible en train
-				if(travelMode === 3 && travelDistance == -1)
+				if(travelMode === 3 && travelDistance === -1)
 				{
 						errorlabel.textContent = 'Travel Impossible by train !!';
 						return;
 				}
-
+				const coords = [
+					new Microsoft.Maps.Location(tabRoute[tabRoute.length-1].getLatD, tabRoute[tabRoute.length-1].getLongD),
+					new Microsoft.Maps.Location(tabRoute[tabRoute.length-1].getLatA, tabRoute[tabRoute.length-1].getLongA)
+				  ];
 				const line = new Microsoft.Maps.Polyline(coords, {
 						strokeColor: 'red',
 						strokeThickness: 3,
 						strokeDashArray: [4, 4]
 					});
+					tabRoute[tabRoute.length-1].calculateDistance;
 			
 				map.entities.push(line);
 
@@ -172,7 +201,7 @@ async function functionDisplaySteps()
 		}
 		else
 		{
-				tabRoute[numberSteps].distance = travelDistance;
+				tabRoute[numberSteps].setDistance = travelDistance;
 				
 				totalDistance += Math.round(travelDistance);
 	
@@ -204,14 +233,12 @@ async function functionDisplaySteps()
 					renderOptions.routeIndex = 0;
 					directionsManager.setRenderOptions(renderOptions);
 		
-					document.getElementById('searchBox').disabled = true;
-					document.getElementById('searchBox2').disabled = true;
+					document.getElementById('searchBox0').disabled = true;
+					document.getElementById('searchBox1').disabled = true;
 		
 					CoordDep = CoordArr;
 		
-			if (travelDistance > 0) {numberSteps++}
 			
-					createTextInput();
 				});
 		}
 
@@ -230,10 +257,14 @@ async function functionDisplaySteps()
 				urlImage = '/plane.png';
 				break;
 		}
+		
+
 	
 		console.log('urlImage:', urlImage, 'travelMode:', travelMode);
+		tabRoute[tabRoute.length-1].calculateDistance;
+		console.log('Distance entre les deux points :', (tabRoute[tabRoute.length-1].getDistance));
 	
-		document.getElementById('step').innerHTML += `<div class="stepContent"><img src="${urlImage}"><p>Step ${numberSteps+1} ${tabRoute[numberSteps].getVilleD}, ${tabRoute[numberSteps].getVilleA} ${Math.round(tabRoute[numberSteps].distance)} Km.</div>`;
+		document.getElementById('step').innerHTML += `<div class="stepContent"><img src="${urlImage}"><p>Step ${numberSteps+1} ${tabRoute[numberSteps].getVilleD}, ${tabRoute[numberSteps].getVilleA} ${travelDistance} Km.</div>`;
 	
 	totalDistanceDiv = document.getElementById('totaldistance');
 		totalDistanceDiv.style.display = "block";

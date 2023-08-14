@@ -49,8 +49,15 @@ function loadMapScenario()
 }
 function selectedSuggestion(suggestionResult) 
 		{
-		
-		tabPushpins.push(new Microsoft.Maps.Pushpin(suggestionResult.location) );
+		var pin = new Microsoft.Maps.Pushpin(suggestionResult.location, {
+			title: suggestionResult.formattedSuggestion,
+			text: ""+(tabPushpins.length + 1)
+
+			
+			});
+
+			
+		tabPushpins.push( pin);
 		map.entities.push(tabPushpins[tabPushpins.length - 1]);
 				if (tabRoute.length === 0 || CoordArr === null)
 				{
@@ -183,8 +190,11 @@ async function functionDisplaySteps()
 					travelDistance = tabRoute[stps].getDistance;
 					console.log('Distance entre les deux points :', travelDistance);
 				map.entities.push(line);
-
+				
+				
+				//map.entities.remove(tabPushpins[tabPushpins.length-1]);Commandes pour supprimer le dernier pushpin
 		}
+
 		
 		else
 		{
@@ -218,6 +228,7 @@ async function functionDisplaySteps()
 						routeDraggable: false,
 						setMapBestView: true
 					};
+					
 		
 					directionsManager.setRequestOptions(requestOptions);
 		
@@ -228,8 +239,7 @@ async function functionDisplaySteps()
 					renderOptions.routeIndex = 0;
 					directionsManager.setRenderOptions(renderOptions);
 		
-					document.getElementById('searchBox0').disabled = true;
-					document.getElementById('searchBox1').disabled = true;
+					
 		
 					CoordDep = CoordArr;
 		
@@ -255,8 +265,11 @@ async function functionDisplaySteps()
 				break;
 		}
 		
-
-	
+		if (travelDistance != -1)
+		{
+			document.getElementById('searchBox0').disabled = true;
+			document.getElementById('searchBox1').disabled = true;
+		}
 		console.log('urlImage:', urlImage, 'travelMode:', travelMode);
 		tabRoute[stps].calculateDistance;
 		console.log('Distance entre les deux points :', (tabRoute[stps].getDistance));

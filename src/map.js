@@ -40,22 +40,30 @@ function loadMapScenario()
 	});
 	
 
-	
+
 
 
 }
+
+function ajouterPushpin(ville,latitude,longitude)
+{
+	var pin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(latitude,  longitude), {
+		title: ville,
+		text: ""+(tabPushpins.length + 1)
+
+		
+		});
+			// Ajouter pushpin à chaque fois qu'on clique sur un résultat
+			//suggestion location latitude / longitude
+			// ville
+		
+	tabPushpins.push( pin);
+	map.entities.push(tabPushpins[tabPushpins.length - 1]);
+}
+
 function selectedSuggestion(suggestionResult) 
 		{
-		var pin = new Microsoft.Maps.Pushpin(suggestionResult.location, {
-			title: suggestionResult.formattedSuggestion,
-			text: ""+(tabPushpins.length + 1)
-
-			
-			});
-
-			
-		tabPushpins.push( pin);
-		map.entities.push(tabPushpins[tabPushpins.length - 1]);
+		
 				if (tabRoute.length === 0 || tabRoute[0].getLatA === null)
 				{
 				
@@ -65,38 +73,58 @@ function selectedSuggestion(suggestionResult)
 						var latDep   = suggestionResult.location.latitude
 						var longDep  = suggestionResult.location.longitude
 						tabRoute.push(new Route(villeDep,null,latDep,longDep,null,null))
+						console.log("La localisation"+suggestionResult.location)
+						
+						ajouterPushpin(villeDep,latDep,longDep);
 					}
 					else
 					{
-					
+						var villeArr = suggestionResult.formattedSuggestion
+						var latArr   = suggestionResult.location.latitude
+						var longArr  = suggestionResult.location.longitude
 							
 
 
-						tabRoute[0].setVilleA = suggestionResult.formattedSuggestion;
-						tabRoute[0].setLatitudeA = suggestionResult.location.latitude;
-						tabRoute[0].setLongitudeA = suggestionResult.location.longitude;
+						tabRoute[0].setVilleA = villeArr;
+						tabRoute[0].setLatitudeA = latArr;
+						tabRoute[0].setLongitudeA = longArr;
 
 						console.log('ville A :',tabRoute[0].getVilleA);
-						console.log('lat A :',tabRoute[0].getLatA);
-						console.log('long A :',tabRoute[0].getLongA);
+						console.log('lat A   :',tabRoute[0].getLatA  );
+						console.log('long A  :',tabRoute[0].getLongA );
 
 							
 						var btn = document.getElementById('calculatedistance');
 						btn.disabled = false;
 						btn.style.backgroundColor = 'green';
 						console.log('fin de fonction');
+
+						ajouterPushpin(villeArr,latArr,longArr);
 					}
 				
 				}
 				else
 				{
-					console.log("Dans le else")
+					console.log("Dans le else else")
 					villeDep = tabRoute[stps].getVilleA;
 					latDep   = tabRoute[stps].getLatA;
 					longDep  = tabRoute[stps].getLongA;
 
-					tabRoute.push(new Route(villeDep,suggestionResult.formattedSuggestion,latDep,longDep,suggestionResult.location.latitude,suggestionResult.location.longitude))
+					var villeArr = suggestionResult.formattedSuggestion;
+					var latArr   = suggestionResult.location.latitude;
+					var longArr  = suggestionResult.location.longitude;
+					
+
+					tabRoute.push(new Route(villeDep,villeArr,latDep,longDep,latArr,longArr))
 					stps++;
+					console.log(tabRoute[stps].toString())
+
+					var btn = document.getElementById('calculatedistance');
+					btn.disabled = false;
+					btn.style.backgroundColor = 'green';
+
+					ajouterPushpin(villeArr,latArr,longArr);
+					
 				}
 			map.setView({ bounds: suggestionResult.bestView });
 		}
@@ -182,7 +210,7 @@ async function functionDisplaySteps()
 		
 		else
 		{
-			Microsoft.Maps.loadModule('Microsoft.Maps.Directions', async function () 
+			Microsoft.Maps.loadModule('Microsoft.Maps.Directions', function () 
 			{
 				directionsManager = new Microsoft.Maps.Directions.DirectionsManager(map);
 
@@ -222,23 +250,21 @@ async function functionDisplaySteps()
 			
 				directionsManager.calculateDirections();
 
-				const requestOptions = 
-				{
-					routeMode: Microsoft.Maps.Directions.RouteMode.driving,
-					maxRoutes: 1,
-					optimizeWaypoints: true,
-					routeDraggable: false,
-					setMapBestView: true
-				};
 			
-				directionsManager.setRequestOptions(requestOptions);
+				directionsManager.setRequestOptions(
+					{
+						routeMode: Microsoft.Maps.Directions.RouteMode.driving,
+						maxRoutes: 1,
+						optimizeWaypoints: true,
+						routeDraggable: false,
+						setMapBestView: true
+					});
 
-				const renderOptions = directionsManager.getRenderOptions();
-
-				renderOptions.draggableRoutes = false;
-
-				renderOptions.routeIndex = 0;
-				directionsManager.setRenderOptions(renderOptions);
+				directionsManager.setRenderOptions(
+				{
+					draggableRoutes: false,
+                	waypointPushpinOptions:{visible:false}
+            	});
 			
 		
 			});
@@ -249,13 +275,23 @@ async function functionDisplaySteps()
 		
 		
 		
-		if (travelDistance != -1)
+		if (travelDistance != -1 )
 		{
-			document.getElementById('searchBox0').disabled = true;
-			document.getElementById('searchBox1').disabled = true;
+			if (stps < 1)
+			{
+				document.getElementById('searchBox0').disabled = true;
+				document.getElementById('searchBox1').disabled = true;
+			}
+			else
+			{
+				console.log('stps :', stps);
+				document.getElementById("searchBox" + (stps+1)).disabled = true;
+			}
+			document.getElementById('newInput').disabled = false;
+
 		}
 
-		totalDistance += Math.round(travelDistance);
+		
 		
 		
 }

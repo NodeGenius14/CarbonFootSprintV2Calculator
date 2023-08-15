@@ -82,8 +82,14 @@ class Route {
 		this.distance = Math.round(distance);
 	}
 
-	
-	 
+	toString() 
+	{
+		let str = "";
+		str += "Ville de départ : " + this.villeD   + " ("+this.latD +" , "+this.longD +")"; 
+		str += "Ville d'arrivée : " + this.villeA   + " ("+ this.latA+" , "+this.longA +")"
+		str += "Distance        : " + this.distance + " km";
+		return str;
+	}
 	
 	
 	

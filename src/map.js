@@ -1,9 +1,6 @@
 var tabAutoSuggest = [];   
 var tabPushpins = []
 var tabRoute = [];
-var CoordDep = null;
-var CoordArr = null;
-
 var travelMode = 1;	//1 = Driving, 2 = Bus, 3 = Train, 4 = Plane
 
 var stps = 0;	//Steps
@@ -59,35 +56,36 @@ function selectedSuggestion(suggestionResult)
 			
 		tabPushpins.push( pin);
 		map.entities.push(tabPushpins[tabPushpins.length - 1]);
-				if (tabRoute.length === 0 || CoordArr === null)
+				if (tabRoute.length === 0 || tabRoute[0].getLatA === null)
 				{
-					if (CoordDep === null)
-			{
-				tabRoute.push(new Route(suggestionResult.formattedSuggestion,null,suggestionResult.location.latitude,suggestionResult.location.longitude,null,null))
-				CoordDep = suggestionResult.location.latitude + ',' + suggestionResult.location.longitude;
-				villeDep = suggestionResult.formattedSuggestion;
-				console.log("Coord Dep : ",CoordDep);
-			}
-				else
-				{
-				 
-						
+				
+					if (tabRoute.length === 0)
+					{
+						var villeDep = suggestionResult.formattedSuggestion
+						var latDep   = suggestionResult.location.latitude
+						var longDep  = suggestionResult.location.longitude
+						tabRoute.push(new Route(villeDep,null,latDep,longDep,null,null))
+					}
+					else
+					{
+					
+							
 
-					CoordArr = suggestionResult.location.latitude + ',' + suggestionResult.location.longitude;
-					tabRoute[0].setVilleA = suggestionResult.formattedSuggestion;
-					tabRoute[0].setLatitudeA = suggestionResult.location.latitude;
-					tabRoute[0].setLongitudeA = suggestionResult.location.longitude;
 
-					console.log('ville A :',tabRoute[0].getVilleA);
-					console.log('lat A :',tabRoute[0].getLatA);
-					console.log('long A :',tabRoute[0].getLongA);
+						tabRoute[0].setVilleA = suggestionResult.formattedSuggestion;
+						tabRoute[0].setLatitudeA = suggestionResult.location.latitude;
+						tabRoute[0].setLongitudeA = suggestionResult.location.longitude;
 
-						
+						console.log('ville A :',tabRoute[0].getVilleA);
+						console.log('lat A :',tabRoute[0].getLatA);
+						console.log('long A :',tabRoute[0].getLongA);
+
+							
 						var btn = document.getElementById('calculatedistance');
 						btn.disabled = false;
 						btn.style.backgroundColor = 'green';
 						console.log('fin de fonction');
-				}
+					}
 				
 				}
 				else
@@ -100,7 +98,7 @@ function selectedSuggestion(suggestionResult)
 					tabRoute.push(new Route(villeDep,suggestionResult.formattedSuggestion,latDep,longDep,suggestionResult.location.latitude,suggestionResult.location.longitude))
 					stps++;
 				}
-		map.setView({ bounds: suggestionResult.bestView });
+			map.setView({ bounds: suggestionResult.bestView });
 		}
 
 function selectTravelMode(travelCode)
@@ -119,53 +117,35 @@ function selectTravelMode(travelCode)
 
 }
 
-async function DistanceCalculAPI(coord1, coord2) {
-	const url = `https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?origins=${coord1}&destinations=${coord2}&travelMode=driving&key=Au3StwO6PwFS37gtE-52dLcOhomBX4tBcN_CZo7KZqP82ymvB9WHWh8Sjm2qs-m-`;
-	
 
-		console.log("affichage cords API : ",coord1,coord2); 
 
-	try {
-		const response = await fetch(url);
-		const data = await response.json();
-		travelDistance = data.resourceSets[0].resources[0].results[0].travelDistance;
-	
-		console.log('Distance entre les deux points :', travelDistance);
-	
-		return travelDistance;
-	} catch (error) {
-		console.log(error);
-		return -10;
-	}
+function createTextInput() 
+	{
+		const inputElement = document.createElement("input");
+		inputElement.type = "search";
+		inputElement.id = "searchBox" + (tabAutoSuggest.length);
+		inputElement.placeholder = "Enter a city";
+		  
+		const container = document.getElementById("searchBoxContainer");
+		container.appendChild(inputElement);
+		  
+		attachAutosuggestToInput(inputElement.id);
 	}
 
-	function createTextInput() 
-		{
-			const inputElement = document.createElement("input");
-			inputElement.type = "search";
-			inputElement.id = "searchBox" + (tabAutoSuggest.length);
-			inputElement.placeholder = "Enter a city";
-		  
-			const container = document.getElementById("searchBoxContainer");
-			container.appendChild(inputElement);
-		  
-			attachAutosuggestToInput(inputElement.id);
-		  }
-
-		function attachAutosuggestToInput(inputId) {
-			const manager = new Microsoft.Maps.AutosuggestManager(optionAutoSuggest);
-			manager.attachAutosuggest('#' + inputId, '#searchBoxContainer', selectedSuggestion);
-			tabAutoSuggest.push(manager);
-		  }
+	function attachAutosuggestToInput(inputId) 
+	{
+		const manager = new Microsoft.Maps.AutosuggestManager(optionAutoSuggest);
+		manager.attachAutosuggest('#' + inputId, '#searchBoxContainer', selectedSuggestion);
+		tabAutoSuggest.push(manager);
+	}
 
 
 async function functionDisplaySteps()
 {
-		const errorlabel = document.getElementById('errorLabel').textContent = null;
-
-		const button = document.getElementById('calculatedistance');
-		button.disabled = true;
-		button.style.backgroundColor = '#8bc09e';
+	const errorlabel = document.getElementById('errorLabel').textContent = null;
+	const button = document.getElementById('calculatedistance');
+	button.disabled = true;
+	button.style.backgroundColor = '#8bc09e';
 
 		console.log("coords : ",);
 	console.log('Nombre d\'étapes :',stps+1);
@@ -175,22 +155,26 @@ async function functionDisplaySteps()
 
 		if(travelMode === 3 || travelMode === 4)
 		{
-				// on part du principe que si trajet impossible en voiture alors impossible en train
+			// on part du principe que si trajet impossible en voiture alors impossible en train
 				
-				const coords = [
-					new Microsoft.Maps.Location(tabRoute[tabRoute.length-1].getLatD, tabRoute[tabRoute.length-1].getLongD),
-					new Microsoft.Maps.Location(tabRoute[tabRoute.length-1].getLatA, tabRoute[tabRoute.length-1].getLongA)
-				  ];
-				const line = new Microsoft.Maps.Polyline(coords, {
-						strokeColor: 'red',
-						strokeThickness: 3,
-						strokeDashArray: [4, 4]
-					});
-					tabRoute[stps].calculateDistance();
-					travelDistance = tabRoute[stps].getDistance;
-					console.log('Distance entre les deux points :', travelDistance);
+			const coords = 
+			[
+				new Microsoft.Maps.Location(tabRoute[tabRoute.length-1].getLatD, tabRoute[tabRoute.length-1].getLongD),
+				new Microsoft.Maps.Location(tabRoute[tabRoute.length-1].getLatA, tabRoute[tabRoute.length-1].getLongA)
+				  
+			];
+			const line = new Microsoft.Maps.Polyline(coords, 
+				{
+					strokeColor: 'red',
+					strokeThickness: 3,
+					strokeDashArray: [4, 4]
+				});
+
+				tabRoute[stps].calculateDistance();
+				travelDistance = tabRoute[stps].getDistance;
+				console.log('Distance entre les deux points :', travelDistance);
 				map.entities.push(line);
-				
+				AfficherEtapes();
 				
 				//map.entities.remove(tabPushpins[tabPushpins.length-1]);Commandes pour supprimer le dernier pushpin
 		}
@@ -198,87 +182,111 @@ async function functionDisplaySteps()
 		
 		else
 		{
-			travelDistance = await DistanceCalculAPI((tabRoute[stps].getLatD+','+tabRoute[stps].getLongD),(tabRoute[stps].getLatA+','+tabRoute[stps].getLongA));
-			if (travelDistance === -1) 
+			Microsoft.Maps.loadModule('Microsoft.Maps.Directions', async function () 
 			{
-				const errorlabel = document.getElementById('errorLabel').textContent = 'Impossible de calculer la distance entre ces deux points';
-			}
-			else
-				{
+				directionsManager = new Microsoft.Maps.Directions.DirectionsManager(map);
 
-				tabRoute[stps].setDistance = travelDistance;
-				
-				
-	
-				Microsoft.Maps.loadModule('Microsoft.Maps.Directions', function () {
-					directionsManager = new Microsoft.Maps.Directions.DirectionsManager(map);
-		
-					const seattleWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: `Start Step ${stps+1}`, location: new Microsoft.Maps.Location(tabRoute[stps].getLatD, tabRoute[stps].getLongD) });
-					directionsManager.addWaypoint(seattleWaypoint);
-		
-					const workWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: `End Step ${stps+1}`, location: new Microsoft.Maps.Location(tabRoute[stps].getLatA, tabRoute[stps].getLongA) });
-					directionsManager.addWaypoint(workWaypoint);
-		
-					directionsManager.calculateDirections();
-		
-					const requestOptions = {
-						routeMode: Microsoft.Maps.Directions.RouteMode.driving,
-						maxRoutes: 1,
-						optimizeWaypoints: true,
-						routeDraggable: false,
-						setMapBestView: true
-					};
+				Microsoft.Maps.Events.addHandler(directionsManager, 'directionsUpdated', function (e) 
+				{
+					var routeIdx = directionsManager.getRequestOptions().routeIndex;
+					console.log('Directions updated:', e.routeSummary);
+					travelDistance = e.routeSummary[routeIdx].distance;
+					console.log('New Distance calculé  :', travelDistance);
+					tabRoute[stps].setDistance = travelDistance;
+
+					AfficherEtapes();
+
+
 					
-		
-					directionsManager.setRequestOptions(requestOptions);
-		
-					const renderOptions = directionsManager.getRenderOptions();
-		
-					renderOptions.draggableRoutes = false;
-		
-					renderOptions.routeIndex = 0;
-					directionsManager.setRenderOptions(renderOptions);
-		
-					
-		
-					CoordDep = CoordArr;
-		
-				
 				});
-			}
+
+				Microsoft.Maps.Events.addHandler(directionsManager, 'directionsError', function (args) 
+				{
+					console.log('Directions error:', args.responseCode, args.message);
+					travelDistance = -1;
+					console.log('New Distance calculé error  :', travelDistance);
+					// Faites ce que vous voulez lorsque le calcul des directions échoue
+				});
+
 			
+		
+		
+
+		
+
+				const seattleWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: `Start Step ${stps+1}`, location: new Microsoft.Maps.Location(tabRoute[stps].getLatD, tabRoute[stps].getLongD) });
+				directionsManager.addWaypoint(seattleWaypoint);
+
+				const workWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: `End Step ${stps+1}`, location: new Microsoft.Maps.Location(tabRoute[stps].getLatA, tabRoute[stps].getLongA) });
+				directionsManager.addWaypoint(workWaypoint);
+			
+				directionsManager.calculateDirections();
+
+				const requestOptions = 
+				{
+					routeMode: Microsoft.Maps.Directions.RouteMode.driving,
+					maxRoutes: 1,
+					optimizeWaypoints: true,
+					routeDraggable: false,
+					setMapBestView: true
+				};
+			
+				directionsManager.setRequestOptions(requestOptions);
+
+				const renderOptions = directionsManager.getRenderOptions();
+
+				renderOptions.draggableRoutes = false;
+
+				renderOptions.routeIndex = 0;
+				directionsManager.setRenderOptions(renderOptions);
+			
+		
+			});
+
+			if (travelDistance === -1) {const errorlabel = document.getElementById('errorLabel').textContent = 'Impossible de calculer la distance entre ces deux points'}
+				
 		}
-		totalDistance += Math.round(travelDistance);
-		let urlImage;
-		switch (travelMode) {
-			case 1:
-				urlImage = '/car.png';
-				break;
-			case 2:
-				urlImage = '/bus.png';
-				break;
-			case 3:
-				urlImage = '/train.png';
-				break;
-			case 4:
-				urlImage = '/plane.png';
-				break;
-		}
+		
+		
 		
 		if (travelDistance != -1)
 		{
 			document.getElementById('searchBox0').disabled = true;
 			document.getElementById('searchBox1').disabled = true;
 		}
-		console.log('urlImage:', urlImage, 'travelMode:', travelMode);
-		tabRoute[stps].calculateDistance;
-		console.log('Distance entre les deux points :', (tabRoute[stps].getDistance));
-	
-		document.getElementById('step').innerHTML += `<div class="stepContent"><img src="${urlImage}"><p>Step ${stps+1} ${tabRoute[stps].getVilleD}, ${tabRoute[stps].getVilleA} ${travelDistance} Km.</div>`;
-	
-	totalDistanceDiv = document.getElementById('totaldistance');
-		totalDistanceDiv.style.display = "block";
-		totalDistanceDiv.innerHTML = `<p>Total Distance ${totalDistance} Km.`;
-	
+
+		totalDistance += Math.round(travelDistance);
 		
+		
+}
+
+function AfficherEtapes()
+{
+	totalDistance += travelDistance;
+	let urlImage;
+	switch (travelMode) 
+	{
+		case 1:
+			urlImage = '/car.png';
+			break;
+		case 2:
+			urlImage = '/bus.png';
+			break;
+		case 3:
+			urlImage = '/train.png';
+			break;
+		case 4:
+			urlImage = '/plane.png';
+			break;
+	}
+
+	console.log('urlImage:', urlImage, 'travelMode:', travelMode);
+	console.log('Distance entre les deux points :', (tabRoute[stps].getDistance));
+
+	document.getElementById('step').innerHTML += `<div class="stepContent"><img src="${urlImage}"><p>Step ${stps+1} ${tabRoute[stps].getVilleD}, ${tabRoute[stps].getVilleA} ${Math.round(travelDistance)} Km.</div>`;
+
+	totalDistanceDiv = document.getElementById('totaldistance');
+	totalDistanceDiv.style.display = "block";
+	totalDistanceDiv.innerHTML = `<p>Total Distance ${Math.round(totalDistance)} Km.`;
+
 }

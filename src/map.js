@@ -47,15 +47,21 @@ function loadMapScenario()
 
 function ajouterPushpin(ville,latitude,longitude)
 {
+	var color = Microsoft.Maps.Color.fromHex('#660000');
 	var pin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(latitude,  longitude), {
 		title: ville,
-		text: ""+(tabPushpins.length + 1)
+		text: ""+(tabPushpins.length + 1),
+		color: color
 
 		
 		});
-			// Ajouter pushpin à chaque fois qu'on clique sur un résultat
-			//suggestion location latitude / longitude
-			// ville
+		Microsoft.Maps.Events.addHandler(pin, 'mouseover', function (e) {
+            e.target.setOptions({ color: 'green' });
+        });
+		Microsoft.Maps.Events.addHandler(pin, 'mouseout', function (e) {
+            e.target.setOptions({ color: color });
+        });
+
 		
 	tabPushpins.push( pin);
 	map.entities.push(tabPushpins[tabPushpins.length - 1]);
@@ -149,6 +155,7 @@ function selectTravelMode(travelCode)
 
 function createTextInput() 
 	{
+		document.getElementById('newInput').disabled = true;
 		const inputElement = document.createElement("input");
 		inputElement.type = "search";
 		inputElement.id = "searchBox" + (tabAutoSuggest.length);

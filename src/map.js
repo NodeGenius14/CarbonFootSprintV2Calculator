@@ -122,7 +122,8 @@ function selectedSuggestion(suggestionResult)
 					
 
 					tabRoute.push(new Route(villeDep,villeArr,latDep,longDep,latArr,longArr))
-					stps++;
+					stps+=1;
+					console.log('nombre steps : ',stps);
 					console.log(tabRoute[stps].toString())
 
 					
@@ -246,10 +247,6 @@ async function functionDisplaySteps()
 				});
 
 			
-		
-		
-
-		
 
 				const seattleWaypoint = new Microsoft.Maps.Directions.Waypoint({ address: `Start Step ${stps+1}`, location: new Microsoft.Maps.Location(tabRoute[stps].getLatD, tabRoute[stps].getLongD) });
 				directionsManager.addWaypoint(seattleWaypoint);
@@ -278,14 +275,18 @@ async function functionDisplaySteps()
 		
 			});
 
-			if (travelDistance === -1) {const errorlabel = document.getElementById('errorLabel').textContent = 'Impossible de calculer la distance entre ces deux points'}
-				
+			if (travelDistance === -1) {document.getElementById('errorLabel').textContent = 'Impossible de calculer la distance entre ces deux points'}
+			
 		}
-		
 		
 		
 		if (travelDistance != -1 )
 		{
+
+
+			document.getElementById('errorLabel').textContent = null;
+			console.log('dans le if != -1');
+
 			if (stps < 1)
 			{
 				document.getElementById('searchBox0').disabled = true;
@@ -319,8 +320,8 @@ function errorDistance()
 
 	//retirer le dernier pushpin
 	map.entities.remove(tabPushpins[tabPushpins.length-1]);
-	stps--;
-	if (tabRoute.length > 1) {tabRoute.pop();console.log("Dans le if")}
+	
+	if (tabRoute.length > 1) {tabRoute.pop();stps-=1; console.log("Dans le if")}
 	else {
 		console.log("Dans le elseztzztt")
 		tabRoute[0].setVilleA     = null;

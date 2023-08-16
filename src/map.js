@@ -69,7 +69,7 @@ function ajouterPushpin(ville,latitude,longitude)
 
 function selectedSuggestion(suggestionResult) 
 		{
-		
+		var btn = document.getElementById('calculatedistance');
 				if (tabRoute.length === 0 || tabRoute[0].getLatA === null)
 				{
 				
@@ -100,7 +100,7 @@ function selectedSuggestion(suggestionResult)
 						console.log('long A  :',tabRoute[0].getLongA );
 
 							
-						var btn = document.getElementById('calculatedistance');
+						
 						btn.disabled = false;
 						btn.style.backgroundColor = 'green';
 						console.log('fin de fonction');
@@ -125,7 +125,7 @@ function selectedSuggestion(suggestionResult)
 					stps++;
 					console.log(tabRoute[stps].toString())
 
-					var btn = document.getElementById('calculatedistance');
+					
 					btn.disabled = false;
 					btn.style.backgroundColor = 'green';
 
@@ -241,6 +241,8 @@ async function functionDisplaySteps()
 					travelDistance = -1;
 					console.log('New Distance calculé error  :', travelDistance);
 					// Faites ce que vous voulez lorsque le calcul des directions échoue
+					errorDistance();
+
 				});
 
 			
@@ -256,7 +258,7 @@ async function functionDisplaySteps()
 				directionsManager.addWaypoint(workWaypoint);
 			
 				directionsManager.calculateDirections();
-
+ 
 			
 				directionsManager.setRequestOptions(
 					{
@@ -301,6 +303,37 @@ async function functionDisplaySteps()
 		
 		
 		
+}
+
+function errorDistance()
+{
+	//label erreur
+	const errorlabel = document.getElementById('errorLabel').textContent = 'Impossible de calculer la distance entre ces deux points'
+
+	// clear le input / 
+	var lastInput = document.getElementById('searchBox'+ (stps+1))
+
+	lastInput.value = "";
+	lastInput.disabled = false;
+	lastInput.focus();
+
+	//retirer le dernier pushpin
+	map.entities.remove(tabPushpins[tabPushpins.length-1]);
+	stps--;
+	if (tabRoute.length > 1) {tabRoute.pop();console.log("Dans le if")}
+	else {
+		console.log("Dans le elseztzztt")
+		tabRoute[0].setVilleA     = null;
+		tabRoute[0].setLatitudeA  = null;
+		tabRoute[0].setLongitudeA = null;
+
+		
+		}
+	tabPushpins.pop();
+	document.getElementById('newInput').disabled = true;
+
+
+
 }
 
 function AfficherEtapes()

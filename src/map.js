@@ -366,4 +366,8 @@ function AfficherEtapes()
 	totalDistanceDiv.style.display = "block";
 	totalDistanceDiv.innerHTML = `<p>Total Distance ${Math.round(totalDistance)} Km.`;
 
+	document.getElementById('searchBox'+ (stps+1)).disabled = true;
+	document.getElementById('newInput').disabled = false;
+	document.getElementById("errorLabel").textContent = null;
+
 }

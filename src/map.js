@@ -371,3 +371,9 @@ function AfficherEtapes()
 	document.getElementById("errorLabel").textContent = null;
 
 }
+
+// go to result page
+document.getElementById("redirectButton").addEventListener("click", function() {
+	// Redirige vers result.html lorsque le bouton est cliqué
+	window.location.href = "result.html";
+});

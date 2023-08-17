@@ -32,15 +32,31 @@ app.use(express.static('public/img'));
 app.use(express.static('public/fonts'));
 
 
-app.get("/*", (__, res) =>
-{
-	let HTML = fs.readFileSync(__dirname + "/public/html/en/404.html", 'utf-8');
-	  if (lang ==="fr")
-	  {
-		  HTML = fs.readFileSync(__dirname + "/public/html/fr/404.html", 'utf-8');
+
+app.get("/result", (req, res, next) => {
+	try {
+	  let HTML = fs.readFileSync(__dirname + "/public/html/en/result.html", 'utf-8');
+	  if (lang === "fr") {
+		HTML = fs.readFileSync(__dirname + "/public/html/fr/result.html", 'utf-8');
 	  }
-	res.send(HTML);
-});
+	  res.send(HTML);
+	} catch (error) {
+	  next(error);
+	}
+  });
+  
+  app.get("/*", (__, res) =>
+  {
+	  let HTML = fs.readFileSync(__dirname + "/public/html/en/404.html", 'utf-8');
+		if (lang ==="fr")
+		{
+			HTML = fs.readFileSync(__dirname + "/public/html/fr/404.html", 'utf-8');
+		}
+	  res.send(HTML);
+  });
+  
+
+
 
 app.listen(port, () => 
 {

@@ -308,6 +308,7 @@ async function functionDisplaySteps()
 
 function errorDistance()
 {
+	resetCalculateBtn(); // reset le bouton calculer dans btnEvent.js
 	//label erreur
 	const errorlabel = document.getElementById('errorLabel').textContent = 'Impossible de calculer la distance entre ces deux points'
 
@@ -339,6 +340,7 @@ function errorDistance()
 
 function AfficherEtapes()
 {
+	resetCalculateBtn(); // reset le bouton calculer dans btnEvent.js
 	totalDistance += travelDistance;
 	let urlImage;
 	switch (travelMode) 

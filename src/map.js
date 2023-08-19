@@ -360,7 +360,7 @@ function AfficherEtapes()
 	console.log('urlImage:', urlImage, 'travelMode:', travelMode);
 	console.log('Distance entre les deux points :', (tabRoute[stps].getDistance));
 
-	document.getElementById('step').innerHTML += `<div class="stepContent"><img src="${urlImage}"><p>Step ${stps+1} ${tabRoute[stps].getVilleD}, ${tabRoute[stps].getVilleA} ${Math.round(travelDistance)} Km.</div>`;
+	document.getElementById('step').innerHTML += `<div class="stepContent"><img src="${urlImage}"><p>Step ${stps+1} ${tabRoute[stps].getVilleD} ➜ ${tabRoute[stps].getVilleA} ${Math.round(travelDistance)} Km.</div>`;
 
 	totalDistanceDiv = document.getElementById('totaldistance');
 	totalDistanceDiv.style.display = "block";
@@ -376,4 +376,4 @@ function AfficherEtapes()
 document.getElementById("redirectButton").addEventListener("click", function() {
 	// Redirige vers result.html lorsque le bouton est cliqué
 	window.location.href = "result.html";
-});
+});	

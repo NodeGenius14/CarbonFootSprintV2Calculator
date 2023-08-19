@@ -8,6 +8,6 @@ btnCalculate.addEventListener("click", () =>
 
 function resetCalculateBtn ()
 {
-	btnCalculateContent.classList.remove("loading");
+	btnCalculateContent.classList.toggle("loading");
 }
 

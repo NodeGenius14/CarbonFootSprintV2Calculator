@@ -191,7 +191,7 @@ async function functionDisplaySteps()
 
 		if(travelMode === 3 || travelMode === 4)
 		{
-			// on part du principe que si trajet impossible en voiture alors impossible en train
+			
 				
 			const coords = 
 			[

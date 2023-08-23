@@ -11,8 +11,10 @@
     <link rel="stylesheet" href="index.css">
 	<!-- Fontawesome CDN Link -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 </head>
 <body>
+	
     <!-- Contenu de la page -->
     <header id="header">
 
@@ -20,12 +22,14 @@
 
         <h1>CarbonFootprint Calculator</h1>
 
-        <div id="languages">
-
-            <a href="#"><img src="france.jpeg"></a>
-            <a href="#"><img src="england.jpg"></a>
-
-        </div>
+		<!-- Dropdown container -->
+		<div class="dropdown">
+			<button class="dropdown-btn">🇬🇧 ENGLISH</button>
+			<div class="dropdown-content">
+			<a href="#" value="france" ><span class="flag-icon">🇫🇷</span> FRENCH</a>
+			<a href="#" value="greatbritain" selected><span class="flag-icon">🇬🇧</span> ENGLISH</a>
+			</div>
+		</div>
         <!-- En-tête de la page (logo, menu, etc.) -->
     </header>
 
@@ -155,4 +159,7 @@
     <script type="text/javascript" src="animations.js"></script>
 
 	<script type="text/javascript" src="btnEvent.js"></script>
+
+	<script type="text/javascript" src="language.js"></script>
+
 </html>

@@ -1,3 +1,8 @@
+/******************************************************/
+/* @author Arthur Lecomte <arthurlecomtefr@gmail.com> */
+/*   & Baptiste Dudonné <bapt.14@hotmail.com> 		  */
+/******************************************************/ 	
+
 setTimeout(function() 
 {
     var header = document.getElementById('header');

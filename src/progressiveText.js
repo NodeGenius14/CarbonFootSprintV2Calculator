@@ -1,3 +1,8 @@
+/******************************************************/
+/* @author Arthur Lecomte <arthurlecomtefr@gmail.com> */
+/*   & Baptiste Dudonné <bapt.14@hotmail.com> 		  */
+/******************************************************/ 	
+
 function effetTexteProgressif(id) {
     const texteElement = document.getElementById(id);
     const texteComplet = texteElement.innerText;
@@ -19,16 +24,7 @@ function effetTexteProgressif(id) {
 effetTexteProgressif('texte');
 effetTexteProgressif('texte2');
 
-/*
-const bouton = document.createElement('button');
-const conteneur = document.getElementById('main');
 
-bouton.textContent = "Calculate Now !";
-bouton.setAttribute("class","calculateButton");
-bouton.style.fontFamily = 'Poppins';
-
-conteneur.appendChild(bouton);
-*/
 
 document.getElementById('calculateButton').addEventListener('click', function() {
   // Ajouter la classe "fade-in-out" à la div "itinaryContainer" pour l'animation de fondu

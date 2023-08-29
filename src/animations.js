@@ -1,3 +1,8 @@
+/******************************************************/
+/* @author Arthur Lecomte <arthurlecomtefr@gmail.com> */
+/*   & Baptiste Dudonné <bapt.14@hotmail.com> 		  */
+/******************************************************/ 	
+
 /*
 // Récupérer l'élément de l'image
 var image = document.getElementById("ecoAnimation");

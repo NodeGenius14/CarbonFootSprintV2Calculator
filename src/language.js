@@ -1,4 +1,7 @@
-
+/******************************************************/
+/* @author Arthur Lecomte <arthurlecomtefr@gmail.com> */
+/*   & Baptiste Dudonné <bapt.14@hotmail.com> 		  */
+/******************************************************/ 	
 
 // Access the dropdown elements
 const dropdownBtn = document.querySelector(".dropdown-btn");
@@ -15,7 +18,6 @@ options.forEach(option => {
   option.addEventListener("click", function(e) {
 	e.preventDefault();
 	const selectedValue = option.getAttribute("value");
-	console.log("Selected country:", selectedValue);
 	dropdownBtn.textContent = option.textContent;
 	dropdownContent.style.display = "none";
   });

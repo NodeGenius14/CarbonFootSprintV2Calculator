@@ -1,5 +1,7 @@
-/*@author Arthur Lecomte <arthurlecomtefr@gmail.com> 
-          & Baptiste Dudonné <bapt.14@hotmail.com> */ 
+/******************************************************/
+/* @author Arthur Lecomte <arthurlecomtefr@gmail.com> */
+/*   & Baptiste Dudonné <bapt.14@hotmail.com> 		  */
+/******************************************************/ 	
 
 const express = require('express');
 const fs	  = require('fs')  	  ;
@@ -8,11 +10,6 @@ const port = process.env.PORT || 3000;
 const lang = process.env.LANG.slice(0, 2);
 const app = express();
 
-
-const path = require('path');
-const fontsPath = path.join(__dirname, 'fonts'); // Chemin vers le dossier des polices
-
-app.use('/fonts', express.static(fontsPath));
 
 
 
@@ -29,7 +26,6 @@ app.get('/', (__, res) =>
 app.use(express.static(__dirname + '/public/css'));
 app.use(express.static(__dirname + '/src'));
 app.use(express.static('public/img'));
-app.use(express.static('public/fonts'));
 
 
 

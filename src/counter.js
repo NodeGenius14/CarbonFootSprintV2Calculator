@@ -1,3 +1,8 @@
+/******************************************************/
+/* @author Arthur Lecomte <arthurlecomtefr@gmail.com> */
+/*   & Baptiste Dudonné <bapt.14@hotmail.com> 		  */
+/******************************************************/ 	
+
 const counters = document.querySelectorAll(".count");
 const speed = 500;
 

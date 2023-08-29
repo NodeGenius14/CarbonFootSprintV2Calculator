@@ -63,22 +63,22 @@
 
             <div class="travelMode">
 
-                <button onclick="selectTravelMode(1)" class="selected" >
+                <button id ="btnCar" class="selected" >
                     <img src="/car.png" alt="car">
                     <span class="circle"></span>
                 </button>
             
-                <button onclick="selectTravelMode(2)">
+                <button id ="btnBus">
                     <img src="/bus.png" alt="bus">
                     <span class="circle"></span>
                 </button>
             
-                <button onclick="selectTravelMode(3)">
+                <button id ="btnTrain">
                     <img src="/train.png" alt="train">
                     <span class="circle"></span>
                 </button>
             
-                <button onclick="selectTravelMode(4)">
+                <button id="btnPlane">
                     <img src="/plane.png" alt="plane">
                     <span class="circle"></span>
                 </button>
@@ -87,9 +87,7 @@
                 
         <div class="searchBox">
 
-            <div id='searchBoxContainer'>
-                    <input type='text' id='searchBox0' placeholder="Start Point."/>
-                    <input type="text" id="searchBox1" placeholder="End Point." />
+            <div id='searchBoxContainer'>	
             </div>
 
             </div>
@@ -98,9 +96,9 @@
             <!--
             <div id="printoutPanel2"></div>
             -->
-			<button id="newInput"  class="button-Input" type="button" onclick="createTextInput()" disabled>Add a step</button>
+			<button id="newInput"  class="button-Input" type="button"disabled>Add a step</button>
 			
-			<button id="calculatedistance"  class="button-33" type="button" onclick="functionDisplaySteps()" disabled>
+			<button id="calculatedistance"  class="button-33" type="button"  disabled>
 				<div >
 					<h3>Calculate</h3>
 				</div>
@@ -150,16 +148,23 @@
 
     <script src="fade.js"></script>
 
-    <script type='text/javascript' src='map.js'></script>
+   <!-- <script type='text/javascript' src='map.js'></script>-->
 
     <script type='text/javascript' src='route.js'></script>
-
-    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=Au3StwO6PwFS37gtE-52dLcOhomBX4tBcN_CZo7KZqP82ymvB9WHWh8Sjm2qs-m-&callback=loadMapScenario' async defer></script>
-
     <script type="text/javascript" src="animations.js"></script>
-
-	<script type="text/javascript" src="btnEvent.js"></script>
-
 	<script type="text/javascript" src="language.js"></script>
+ 
+	<script type="text/javascript" src="loadMap.js"></script>
+	<script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=Au3StwO6PwFS37gtE-52dLcOhomBX4tBcN_CZo7KZqP82ymvB9WHWh8Sjm2qs-m-&callback=loadMap' async defer	 ></script>
+
+	<script type="text/javascript" src="Vue/Vue.js">			  </script>	
+	<script type="text/javascript" src="Modele/Modele.js">		  </script>
+	<script type="text/javascript" src="Controleur/Controleur.js"></script>
+	
+	
+	
+	
+	
+
 
 </html>

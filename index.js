@@ -10,9 +10,6 @@ const port = process.env.PORT || 3000;
 const lang = process.env.LANG.slice(0, 2);
 const app = express();
 
-
-
-
 app.get('/', (__, res) =>
 {
 	let indexHTML = fs.readFileSync(__dirname + '/public/html/en/index.html', 'utf-8');
@@ -23,10 +20,11 @@ app.get('/', (__, res) =>
 	}
 	  res.send(indexHTML);
 });
+
+
 app.use(express.static(__dirname + '/public/css'));
 app.use(express.static(__dirname + '/src'));
 app.use(express.static('public/img'));
-
 
 
 app.get("/result", (req, res, next) => {
@@ -40,16 +38,17 @@ app.get("/result", (req, res, next) => {
 	  next(error);
 	}
   });
-  
-  app.get("/*", (__, res) =>
-  {
-	  let HTML = fs.readFileSync(__dirname + "/public/html/en/404.html", 'utf-8');
-		if (lang ==="fr")
-		{
-			HTML = fs.readFileSync(__dirname + "/public/html/fr/404.html", 'utf-8');
-		}
-	  res.send(HTML);
-  });
+
+
+app.get("/*", (__, res) =>
+{
+	let HTML = fs.readFileSync(__dirname + "/public/html/en/404.html", 'utf-8');
+	if (lang ==="fr")
+	{
+		HTML = fs.readFileSync(__dirname + "/public/html/fr/404.html", 'utf-8');
+	}
+	res.send(HTML);
+});
   
 
 

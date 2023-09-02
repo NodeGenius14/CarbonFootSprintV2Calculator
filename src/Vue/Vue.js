@@ -13,7 +13,7 @@ class Vue
 
 		this.nbInput     = 		  0 ;
 		this.tabPins     = 		 [] ;
-		this.travelMode  = "btnCar" ;
+		this.travelMode  = "car" ;
 		this.tabLocation = 		 [] ;
 		this.map		 = 		map ; 
 
@@ -42,7 +42,8 @@ class Vue
 		this.divSteps     		   = document.getElementById  			( 'step'			   		);
 		this.divTotalDistance	   = document.getElementById			( 'totaldistance'			);
 		this.searchBoxContainer    = document.getElementById  			( 'searchBoxContainer'		);
-		this.errorLabel			   = document.getElementById  			( 'errorLabel'				);	
+		this.errorLabel			   = document.getElementById  			( 'errorLabel'				);
+		this.btnResultRedirect	   = document.getElementById			( 'redirectButton'			);	
 
 			
 
@@ -51,32 +52,46 @@ class Vue
 			/*-----------------------------*/
 			
 
-	this.btnCalculate.addEventListener('click', () =>
-	{
-		console.log("click btnCalculate");
-		this.btnCalculateContent.classList.toggle("loading");
-		
-		if (this.travelMode ==="btnTrain" || this.travelMode ==="btnPlane"){this.calculateCrowFlies();}
-		else {this.calculateByRoad()}
-
-	});
-
-	this.btnNewInput.addEventListener('click', () =>
-	{
-		this.createTextInput();
-		this.btnNewInput.disabled = true;
-
-	});
-
-	this.btnTravelMode.forEach( ( button ) => 
-	{
-		button.addEventListener( 'click' , () => 
+		this.btnCalculate.addEventListener('click', () =>
 		{
-			this.changeTravelMode( button );
+			console.log("click btnCalculate");
+			this.btnCalculateContent.classList.toggle("loading");
+			this.btnCalculate.disabled = true;
+			
+			if (this.travelMode ==="train" || this.travelMode ==="plane"){this.calculateCrowFlies();}
+			else {this.calculateByRoad()}
+
 		});
 
-	});	
+		this.btnNewInput.addEventListener('click', () =>
+		{
+			this.createTextInput();
+			this.btnNewInput.disabled = true;
+
+		});
+
+		this.btnTravelMode.forEach( ( button ) => 
+		{
+			button.addEventListener( 'click' , () => 
+			{
+				this.changeTravelMode( button );
+			});
+
+		});	
+
+		this.btnResultRedirect.addEventListener('click', (e) =>
+		{
+			e.preventDefault();
+			window.location.href = "/result";
+			this.ctrl.getModele.sendData();
+			
+		});
 	}
+
+		/*-----------------------------*/
+		/* Getters & Setters           */
+		/*-----------------------------*/
+
 	get getNbInput				    () { return this.nbInput 				  ;}
 	set setStateBtnCalculate ( state ) 
 	{ 
@@ -148,7 +163,8 @@ class Vue
 		});
 
 		selectedButton.classList.add('selected') ;
-		this.travelMode 	 = selectedButton.id ;
+		this.travelMode 	 = selectedButton.id.substring(3).toLowerCase() ;
+
 	}
 
 
@@ -262,34 +278,22 @@ class Vue
 	}
 	afficherStep()
 	{
-		let tabRoute	  = this.ctrl.getModele.getTabRoute		    ;
-		let step 		  = tabRoute.length						    ;
-		let villeD		  = tabRoute[tabRoute.length-1].getVilleD   ;
-		let villeA		  = tabRoute[tabRoute.length-1].getVilleA   ;
-		let distance	  = tabRoute[tabRoute.length-1].getDistance ;
-		let totalDistance = this.ctrl.getModele.getTotalDistance 	;
-		let urlImage 	  = null									;
-
+		let tabRoute	  = this.ctrl.getModele.getTabRoute		    	   ;
+		let step 		  = tabRoute.length						   	       ;
+		let villeD		  = tabRoute[tabRoute.length-1].getVilleD   	   ;
+		let villeA		  = tabRoute[tabRoute.length-1].getVilleA   	   ;
+		let distance	  = tabRoute[tabRoute.length-1].getDistance 	   ;
+		let totalDistance = this.ctrl.getModele.getTotalDistance 		   ;
+		let urlImage 	  = null
+		
+		
+		tabRoute[ tabRoute.length-1 ].setTravelMode = this.travelMode ;
 		
 
 		console.log("travelMode" + this.travelMode)
-		switch ( this.travelMode ) 
-		{
-		case "btnCar":
-			urlImage =    '/car.png';
-			break;
-		case "btnBus":
-			urlImage =   '/bus.png' ;
-			break;
-		case "btnTrain":
-			urlImage = '/train.png' ;
-			break;
-		case "btnPlane":
-			urlImage = '/plane.png' ;
-			break;
-		}
+		console.log(`<div class="stepContent"><img src="/${ this.travelMode }.png><p>Step ${ step } <br> ${ villeD } ➜ ${ villeA } <br> ${ Math.round( distance ) } Km.</div>` )
 
-		this.divSteps.innerHTML 		   += `<div class="stepContent"><img src="${ urlImage }"><p>Step ${ step } <br> ${ villeD } ➜ ${ villeA } <br> ${ Math.round( distance ) } Km.</div>` ;
+		this.divSteps.innerHTML += `<div class="stepContent"><img src="/${this.travelMode}.png"><p>Step ${step} <br> ${villeD} ➜ ${villeA} <br> ${Math.round(distance)} Km.</div>`;
 		this.divTotalDistance.style.display = "block" 																												    ;
 		this.divTotalDistance.innerHTML     = `<p>Total Distance ${Math.round(totalDistance)} Km.` 																		;
 	}

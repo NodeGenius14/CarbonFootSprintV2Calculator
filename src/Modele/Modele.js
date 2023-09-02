@@ -1,7 +1,10 @@
 /******************************************************/
 /* @author Arthur Lecomte <arthurlecomtefr@gmail.com> */
 /*   & Baptiste Dudonné <bapt.14@hotmail.com> 		  */
-/******************************************************/ 	
+/******************************************************/
+
+
+ 	
 
 class Modele
 {	
@@ -56,5 +59,16 @@ class Modele
 		  { document.getElementById("searchBox" + this.tabRoute.length).disabled 	 = true ;}
 		
 	}
+
+	sendData()
+
+	{
+		console.log("Taratataa"+this.tabRoute.toString()) ;
+		localStorage.setItem("tabRoute", JSON.stringify(this.tabRoute));
+		//window.location.href = "/result";
+
+
+	}
+
 
 }

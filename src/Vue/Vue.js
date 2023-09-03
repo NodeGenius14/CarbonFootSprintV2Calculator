@@ -306,10 +306,11 @@ class Vue
 	}
 
 	//Annulation Bouton de chargement pour le calcul de distance
-	resetCalculateBtn () { 
+	resetCalculateBtn () 
+	{ 
 		this.btnCalculateContent.classList.toggle( "loading" ) ; 
 		this.btnCalculate.disabled = true					   ;
-		this.btnCalculate.style.backgroundColor = '#8bc09e'		   ;
+		this.btnCalculate.style.backgroundColor = '#8bc09e'	   ;
 	}
 
 	

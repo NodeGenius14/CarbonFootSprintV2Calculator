@@ -131,18 +131,9 @@ class Result
 	{
 		this.divTitle.innerHTML +="<h3> Your Travel From "+this.tabRoute[0].villeD + " to " + this.tabRoute[this.nbSteps-1].villeA +"</h3>";
 		
-		
-		if (this.nbSteps == 1)
-		{
-			this.divTitle.innerHTML += "<p>Detailled By <strong>"+ this.nbSteps+" </strong>step.</p>"
-		}
-		else
-		{
-		this.divTitle.innerHTML += "<p>Detailled By <strong>"+ this.nbSteps+" </strong>steps.</p>"
-		}
+		let str = "step";
+		if (this.nbSteps > 1) { str +="s"}	
+		this.divTitle.innerHTML += "<p>Detailled By <strong>"+ this.nbSteps+" </strong>"+ str +".</p>";
 	}
-	total()
-	{
-		this.divTitle.innerHTML += "<h3>Total Co2 Emitted : <strong>"+ this.totalCO.toFixed(2)+" </strong>kg.</h3>"
-	}
+	total() { this.divTitle.innerHTML += "<h3>Total Co2 Emitted : <strong>"+ this.totalCO.toFixed(2)+" </strong>kg.</h3>" }
 }

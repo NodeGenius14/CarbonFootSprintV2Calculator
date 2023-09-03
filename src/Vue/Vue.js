@@ -43,7 +43,8 @@ class Vue
 		this.divTotalDistance	   = document.getElementById			( 'totaldistance'			);
 		this.searchBoxContainer    = document.getElementById  			( 'searchBoxContainer'		);
 		this.errorLabel			   = document.getElementById  			( 'errorLabel'				);
-		this.btnResultRedirect	   = document.getElementById			( 'redirectButton'			);	
+		this.btnResultRedirect	   = document.getElementById			( 'redirectButton'			);
+		this.classTravelMode	   = document.getElementsByClassName	( 'travelMode'				);	
 
 			
 
@@ -86,6 +87,8 @@ class Vue
 			this.ctrl.getModele.sendData();
 			
 		});
+		
+		
 	}
 
 		/*-----------------------------*/
@@ -123,6 +126,8 @@ class Vue
 		});
 	this.searchBoxContainer.scrollTop = this.searchBoxContainer.scrollHeight;
 
+	this.btnResultRedirect.style.display = "none";
+
 		
 	}
 	ajouterPushpin(ville, latitude, longitude)
@@ -149,6 +154,8 @@ class Vue
 		let rect = Microsoft.Maps.LocationRect.fromLocations( locs ) ;
 
 		map.setView({ bounds: rect, padding: 80 }) ;
+
+		this.btnResultRedirect.style.display = "none";
 		}
 
 		//Vue sur toutes les locations
@@ -198,6 +205,7 @@ class Vue
 				Microsoft.Maps.Events.addHandler(directionsManager, 'directionsError', (args) => 
 				{
 					this.errorDistance();
+					
 
 				});
 
@@ -226,6 +234,22 @@ class Vue
 		let tabRoute  				= this.ctrl.getModele.getTabRoute				;
 		let lastInput 				= document.getElementById('searchBox'+ (lgt+1)) ;
 		
+		/*Animations*/
+		lastInput.classList.add('shake-animation');
+		this.btnTravelMode.forEach( function( button )
+		{
+			button.classList.add('shake-animation');
+		});
+		
+		setTimeout(() => 
+		{
+			lastInput.classList.remove('shake-animation');
+			this.btnTravelMode.forEach( function( button )
+			{
+				button.classList.remove('shake-animation');
+
+			})
+		}, 500);
 		lastInput.value = ""		;
 		lastInput.disabled = false  ;
 		lastInput.focus()			;	
@@ -305,6 +329,8 @@ class Vue
 		this.divTotalDistance.style.display = "block" 																												    ;
 		this.divTotalDistance.innerHTML     = `<p>Total Distance ${Math.round(totalDistance)} Km.` 																		;
 		this.divSteps.scrollTop = this.divSteps.scrollHeight;
+
+		this.btnResultRedirect.style.display = "block";
 	}
 
 

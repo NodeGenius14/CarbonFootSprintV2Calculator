@@ -13,10 +13,10 @@ class Result
 		this.CO = 
 		{
 			//diesel total vehicule*co2 + petrole total vehicule* co2  / total vehicule
-			"car"   : ((145.1 * 20299787 + 162.0 * 14654485)/(20299787 + 14654485)),
-			"bus"	  : 101.7,
-			"plane" : 90,
-			"train" : 25.85
+			"car"   : ((145.1 * 20299787 + 162.0 * 14654485)/(20299787 + 14654485))*0.001,
+			"bus"	  : 0.1017,
+			"plane" : 0.090,
+			"train" : 0.02585
 
 
 		}
@@ -27,6 +27,8 @@ class Result
 			{
 			this.step(route.villeD, route.latD, route.longD, route.villeA, route.latA, route.longA, route.travelMode, route.distance)
 			});
+
+		this.total();
 		
 		
 	};
@@ -39,26 +41,16 @@ class Result
 		this.totalCO		 += totalDistance;
 			  this.i++;
 		
-		if (totalDistance > 1000)
-		{
-			totalDistance = totalDistance /     1000;
 			totalDistance = totalDistance.toFixed(2);
 			totalDistance = totalDistance +    " kg";
-		}
-		else
-		{
-			totalDistance = totalDistance.toFixed(2);
-			totalDistance = totalDistance + " g";
-		}
 
 		console.log("TravelMode" + travelMode)
-		//console.log("this.CO[travelMode]" + this.CO.car);
 
 		divDetail.className = "detail";
 		divDetail.innerHTML += "<p>" + villeD + " - " + villeA + "</p>";
 		divDetail.innerHTML += "<img src=/"+travelMode+".png>";
-		divDetail.innerHTML += "<p>" + Math.round(distance) + " kilometers</p>"; 
-		divDetail.innerHTML += "<p>Co2 Average per Kilometer " + Math.round(this.CO[travelMode]) + "g	</p>";
+		divDetail.innerHTML += "<p>" + distance.toFixed(2) + " kilometers</p>"; 
+		divDetail.innerHTML += "<p>Co2 Average per Kilometer " + (this.CO[travelMode]*1000).toFixed(2) + "g	</p>";
 		divDetail.innerHTML += "<p>Co2 Total " + totalDistance +	"</p>";
 
 		
@@ -109,6 +101,14 @@ class Result
 			directionsManager.addWaypoint(   endStep );
 			directionsManager.calculateDirections   ();
 
+			directionsManager.setRequestOptions(
+				{ 
+					routeMode: Microsoft.Maps.Directions.RouteMode.driving,
+					maxRoutes: 1,
+					optimizeWaypoints: true,
+					routeDraggable: false,
+			});
+
 			directionsManager.setRenderOptions({draggableRoutes: false,
 				waypointPushpinOptions:{visible:false}})
 		}
@@ -129,7 +129,7 @@ class Result
 
 	setTitle()
 	{
-		this.divTitle.innerHTML +="<h1> Your Travel From "+this.tabRoute[0].villeD + " to " + this.tabRoute[this.nbSteps-1].villeA +"</h1>";
+		this.divTitle.innerHTML +="<h3> Your Travel From "+this.tabRoute[0].villeD + " to " + this.tabRoute[this.nbSteps-1].villeA +"</h3>";
 		
 		
 		if (this.nbSteps == 1)
@@ -140,5 +140,9 @@ class Result
 		{
 		this.divTitle.innerHTML += "<p>Detailled By <strong>"+ this.nbSteps+" </strong>steps.</p>"
 		}
+	}
+	total()
+	{
+		this.divTitle.innerHTML += "<h3>Total Co2 Emitted : <strong>"+ this.totalCO.toFixed(2)+" </strong>kg.</h3>"
 	}
 }

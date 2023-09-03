@@ -13,7 +13,8 @@ function loadMap()
 	{
 				
 				center: new Microsoft.Maps.Location(48.86666,  2.333333),
-				zoom: 5
+				zoom: 5,
+				liteMode: true,
 		
 	};
 	Microsoft.Maps.loadModule('Microsoft.Maps.AutoSuggest', function () 
@@ -27,6 +28,7 @@ function loadMap()
 	});
 	ctrl = new Controleur(map);
 	ctrl.getVue.init();
+	
 	
 
 			

@@ -139,12 +139,19 @@ class Vue
 
 		this.map.entities.push( pin );										//Ajout du pushpin sur la carte
 		this.tabPins.push( pin );											//Ajout du pushpin dans le tableau pour le supprimer si besoin
-
-		//Vue sur toutes les locations
+		
+		if(this.tabLocation.length === 1){this.map.setView({ center: this.tabLocation [ this.tabLocation.length-1 ], zoom: 5 });}		//Vue sur la derniere location}
+		
+		else
+		{
 		let locs = 									this.tabLocation ;
 		let rect = Microsoft.Maps.LocationRect.fromLocations( locs ) ;
 
 		map.setView({ bounds: rect, padding: 80 }) ;
+		}
+
+		//Vue sur toutes les locations
+		
 		this.count++
 	}
 
@@ -323,8 +330,7 @@ class Vue
 					routeMode: Microsoft.Maps.Directions.RouteMode.driving,
 					maxRoutes: 1,
 					optimizeWaypoints: true,
-					routeDraggable: false,
-					setMapBestView: true
+					routeDraggable: false
 				}
 				this.directionsRenderOptions =
 				{

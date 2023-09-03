@@ -121,7 +121,8 @@ class Vue
 		{
 			self.ctrl.getModele.selectedSuggestion(result.formattedSuggestion, result.location.latitude, result.location.longitude);
 		});
-	
+	this.searchBoxContainer.scrollTop = this.searchBoxContainer.scrollHeight;
+
 		
 	}
 	ajouterPushpin(ville, latitude, longitude)
@@ -303,7 +304,9 @@ class Vue
 		this.divSteps.innerHTML += `<div class="stepContent"><img src="/${this.travelMode}.png"><p>Step ${step} <br> ${villeD} ➜ ${villeA} <br> ${Math.round(distance)} Km.</div>`;
 		this.divTotalDistance.style.display = "block" 																												    ;
 		this.divTotalDistance.innerHTML     = `<p>Total Distance ${Math.round(totalDistance)} Km.` 																		;
+		this.divSteps.scrollTop = this.divSteps.scrollHeight;
 	}
+
 
 	//Annulation Bouton de chargement pour le calcul de distance
 	resetCalculateBtn () 

@@ -255,6 +255,11 @@ main{
     background-color: #fff;
 }
 
+#searchBoxContainer
+{
+    height: 18vh;
+    overflow-x: scroll;
+}
 
 #map{
     width: 80vw;
@@ -414,13 +419,19 @@ h1
     
 }
 
+#step::-webkit-scrollbar {
+    width: 12px; /* Largeur de la barre de défilement */
+}
 
+#searchBoxContainer::-webkit-scrollbar {
+    width: 12px; /* Largeur de la barre de défilement */
+}
 
 #step
 {
-    height: 40%;
+    height: 40vh;
     width: 97%;
-    overflow-y: scroll;
+    overflow-x: scroll;
     background-color: grey;
     border-radius: 5px;
     border: 1px solid black;

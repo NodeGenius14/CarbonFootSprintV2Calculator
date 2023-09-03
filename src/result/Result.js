@@ -81,6 +81,10 @@ class Result
 			disableStreetside: true,
 			disableBirdseye: true,
 			IsHitTestVisible : false,
+			disableScrollWheelZoom: true,
+			disableZooming: true,
+			disablePanning: true,
+			liteMode: true,
 
 		});
 		  
@@ -88,8 +92,8 @@ class Result
 		const locVilleD = new Microsoft.Maps.Location( latD,  longD);
 		const locVilleA = new Microsoft.Maps.Location( latA,  longA);
 
-		const pinD = new Microsoft.Maps.Pushpin(locVilleD, {color: 'purple', text: 'A'});
-		const pinA = new Microsoft.Maps.Pushpin(locVilleA, {color: 'purple', text: 'B'});
+		const pinD = new Microsoft.Maps.Pushpin(locVilleD, {color: 'purple', text: 'A',title: villeD});
+		const pinA = new Microsoft.Maps.Pushpin(locVilleA, {color: 'purple', text: 'B',title: villeA});
 
 		map.entities.push(pinD);
 		map.entities.push(pinA);
@@ -104,6 +108,9 @@ class Result
 			directionsManager.addWaypoint( startStep );
 			directionsManager.addWaypoint(   endStep );
 			directionsManager.calculateDirections   ();
+
+			directionsManager.setRenderOptions({draggableRoutes: false,
+				waypointPushpinOptions:{visible:false}})
 		}
 		else
 		{

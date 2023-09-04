@@ -310,6 +310,10 @@ h1
     transition: opacity 1s ease;
 }
 
+#searchBoxContainer input
+{
+    width: 80%;
+}
 
 .itinary h3
 {
@@ -552,6 +556,36 @@ footer a
 @media screen and (max-width:600px) {
     
 
+
+    .itinary{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .travelMode{
+        width: 220px;
+        height: 42px;
+
+    }
+
+    .travelMode button img
+    {
+        width: 30px;
+        height: 30px;
+        
+    }
+
+
+    #searchBoxContainer
+    {
+        height: 8vh;
+    }
+
+    #searchBoxContainer input
+    {
+        width: 20vh;
+    }
+
     #itinaryContainer
     {
         flex-direction: column;
@@ -559,11 +593,36 @@ footer a
         background-color: #000;
     }
 
+
+    #calculatedistance
+    {
+        width: 100px;
+        height: 30px;
+        font-size: small;
+    }
+
     .itinary
     {
         height: 50vh;
         width: 100%;
         background-color: #27ae60;
+
+        display: flex;
+        flex-direction: row;
+    }
+
+    #modeinput 
+    {
+        height: 100%;
+        width: 50%;
+        background-color: blue;
+    }
+
+    #stepresult
+    {
+        height: 100%;
+        width: 50%;
+        background-color: #8bc09e;
     }
 
     #myMap{
@@ -573,8 +632,9 @@ footer a
     
     #step
     {
-        height: 16vh;
+        height: 13vh;
     }
+
 }
 
 footer

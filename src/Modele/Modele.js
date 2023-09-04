@@ -65,7 +65,7 @@ class Modele
 	{
 		console.log("Taratataa"+this.tabRoute.toString()) ;
 		localStorage.setItem("tabRoute", JSON.stringify(this.tabRoute));
-		//window.location.href = "/result";
+		
 
 
 	}

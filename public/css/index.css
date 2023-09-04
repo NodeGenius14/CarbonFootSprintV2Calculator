@@ -453,16 +453,11 @@ h1
     margin-bottom: 10px;
 }
 
-.stepContent p
-{
-    font-size: 2vw;
-}
-
 
 #step img
 {
-    width: 5vw;
-    height: 5vw;
+    width: 40px;
+    height: 40px;
 }
 
 footer
@@ -480,7 +475,7 @@ footer a
 #redirectButton
 {
     text-align: center;
-    font-size: 2vw;
+    font-size: medium;
 }
 
 
@@ -514,20 +509,7 @@ footer a
     margin: 10px;
 }
 
-#totaldistance p
-{
-    font-size: 2vw;
-}
 
-#modeinput p
-{
-    font-size: 1.5vw;
-}
-
-#modeinput h3
-{
-    font-size: 3vw;
-}
 
 #calculatedistance 
 {
@@ -582,6 +564,7 @@ footer a
 	}
 }
 
+/* responsive */
 @media screen and (max-width:900px) {
     
 
@@ -667,6 +650,41 @@ footer a
     {
         margin-top: 20px;
         height: 80%;
+    }
+
+
+    #redirectButton
+    {
+        text-align: center;
+        font-size: 2vw;
+    }
+
+    #totaldistance p
+    {
+        font-size: 2vw;
+    }
+
+    #modeinput p
+    {
+        font-size: 1.5vw;
+    }
+
+    #modeinput h3
+    {
+        font-size: 3vw;
+    }
+
+
+    .stepContent p
+    {
+        font-size: 2vw;
+    }
+
+
+    #step img
+    {
+        width: 5vw;
+        height: 5vw;
     }
 
 }

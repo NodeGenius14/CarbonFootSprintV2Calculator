@@ -337,6 +337,7 @@ h1
 .travelMode {
     margin: 10px;
     width: 90%;
+    height: 3.5vw;
     background-color: rgb(255, 255, 255);
     border: 1px solid black;
     border-radius: 5px;
@@ -350,6 +351,8 @@ h1
     margin: 1px;
     background: none;
     border: none;
+    width: 15%;
+    height: 80%; 
     padding: 0;
 }
 
@@ -359,8 +362,8 @@ h1
     opacity: 0.5;
     transition: opacity 0.3s ease;
     position: relative;
-    height: 85%;
-    width: 85%;
+    height: 100%;
+    width: 100%;
 }
 
 .travelMode button img:hover

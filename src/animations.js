@@ -37,6 +37,9 @@ function displayItinary()
   doc.style.height = '100vh';
   doc.style.visibility = 'visible';
 
+
+  document.getElementById('itinaryContainer').style.display = 'flex';
+
   document.getElementById('footer').style.display = 'block'
 
   document.getElementById('footer').style.visibility = 'visible';

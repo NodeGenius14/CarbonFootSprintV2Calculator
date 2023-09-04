@@ -348,12 +348,15 @@ h1
 }
 
 .travelMode button {
-    margin: 1px;
+    
     background: none;
     border: none;
-    width: 15%;
-    height: 80%; 
-    padding: 0;
+    
+  width: 12%; /* Définit la largeur du bouton à 15% de la largeur du parent */
+  padding-top: 12%; /* Définit la hauteur du bouton à 15% de la largeur du parent */
+  box-sizing: border-box;
+  padding: 0;
+  margin-top: 20px;
 }
 
 

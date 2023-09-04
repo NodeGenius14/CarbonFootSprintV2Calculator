@@ -568,8 +568,10 @@ footer a
     }
 
     .travelMode{
-        width: 220px;
+        width: 90%;
         height: 42px;
+        display: flex;
+        align-items: center;
 
     }
 

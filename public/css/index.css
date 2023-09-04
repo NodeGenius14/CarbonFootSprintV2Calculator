@@ -343,7 +343,7 @@ h1
     display: flex;
     align-items: center;
     justify-content: space-between; /* Use justify-content instead of align-content */
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 .travelMode button {
@@ -453,10 +453,16 @@ h1
     margin-bottom: 10px;
 }
 
+.stepContent p
+{
+    font-size: 2vw;
+}
+
+
 #step img
 {
-    width: 40px;
-    height: 40px;
+    width: 5vw;
+    height: 5vw;
 }
 
 footer
@@ -474,7 +480,9 @@ footer a
 #redirectButton
 {
     text-align: center;
+    font-size: 2vw;
 }
+
 
 /* Ajoutez cette partie dans votre fichier CSS ou dans une balise <style> dans le <head> de votre document HTML */
 
@@ -506,6 +514,21 @@ footer a
     margin: 10px;
 }
 
+#totaldistance p
+{
+    font-size: 2vw;
+}
+
+#modeinput p
+{
+    font-size: 1.5vw;
+}
+
+#modeinput h3
+{
+    font-size: 3vw;
+}
+
 #calculatedistance 
 {
 
@@ -522,6 +545,7 @@ footer a
 	justify-content: center;
 	align-items: center;
   }
+
 
   
 #calculatedistance:hover {
@@ -558,7 +582,7 @@ footer a
 	}
 }
 
-@media screen and (max-width:600px) {
+@media screen and (max-width:900px) {
     
 
 
@@ -572,13 +596,14 @@ footer a
         height: 42px;
         display: flex;
         align-items: center;
+        justify-content: center;
 
     }
 
     .travelMode button img
     {
-        width: 30px;
-        height: 30px;
+        width: 7vw;
+        height: 7vw;
         
     }
 
@@ -640,6 +665,7 @@ footer a
     
     #step
     {
+        margin-top: 20px;
         height: 80%;
     }
 

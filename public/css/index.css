@@ -347,7 +347,7 @@ h1
 }
 
 .travelMode button {
-    margin: 5px;
+    margin: 1px;
     background: none;
     border: none;
     padding: 0;
@@ -359,8 +359,8 @@ h1
     opacity: 0.5;
     transition: opacity 0.3s ease;
     position: relative;
-    height: 40px;
-    width: 40px;
+    height: 85%;
+    width: 85%;
 }
 
 .travelMode button img:hover
@@ -564,130 +564,6 @@ footer a
 	}
 }
 
-/* responsive */
-@media screen and (max-width:900px) {
-    
-
-
-    .itinary{
-        display: flex;
-        flex-direction: column;
-    }
-
-    .travelMode{
-        width: 90%;
-        height: 42px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-    }
-
-    .travelMode button img
-    {
-        width: 7vw;
-        height: 7vw;
-        
-    }
-
-
-    #searchBoxContainer
-    {
-        height: 15vh;
-    }
-
-    #searchBoxContainer input
-    {
-        width: 85%;
-    }
-
-    #itinaryContainer
-    {
-        flex-direction: column;
-        height: 100vh;
-        background-color: #000;
-    }
-
-
-    #calculatedistance
-    {
-        width: 100px;
-        height: 30px;
-        font-size: small;
-    }
-
-    .itinary
-    {
-        height: 50vh;
-        width: 100%;
-        
-        display: flex;
-        flex-direction: row;
-    }
-
-    #modeinput 
-    {
-        
-        align-items: center;
-        height: 100%;
-        width: 50%;
-    }
-
-    #stepresult
-    {
-       
-        align-items: center;
-        height: 100%;
-        width: 50%;
-        }
-
-    #myMap{
-        width: 100%;
-        height: 50vh;
-    }
-    
-    #step
-    {
-        margin-top: 20px;
-        height: 80%;
-    }
-
-
-    #redirectButton
-    {
-        text-align: center;
-        font-size: 2vw;
-    }
-
-    #totaldistance p
-    {
-        font-size: 2vw;
-    }
-
-    #modeinput p
-    {
-        font-size: 1.5vw;
-    }
-
-    #modeinput h3
-    {
-        font-size: 3vw;
-    }
-
-
-    .stepContent p
-    {
-        font-size: 2vw;
-    }
-
-
-    #step img
-    {
-        width: 5vw;
-        height: 5vw;
-    }
-
-}
 
 @keyframes shake {
 	0% { transform: translateX(0); }
@@ -700,14 +576,3 @@ footer a
 	animation: shake 0.5s ease-in-out;
 	
   }
-  
-
-
-
-
-
-footer
-{
-    border-top : 2px solid black;
-    display: none;
-}

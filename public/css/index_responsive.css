@@ -1,0 +1,134 @@
+
+/* responsive */
+@media screen and (max-width:900px) {
+    
+
+
+    .itinary{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .travelMode{
+        width: 90%;
+        height: 4.5vh;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+    }
+
+    /*
+    .travelMode button img
+    {
+        width: 5vw;
+        height: 5vw;
+        
+    }
+    */
+
+
+    #searchBoxContainer
+    {
+        height: 15vh;
+    }
+
+    #searchBoxContainer input
+    {
+        width: 85%;
+    }
+
+    #itinaryContainer
+    {
+        flex-direction: column;
+        height: 100vh;
+        background-color: #000;
+    }
+
+
+    #calculatedistance
+    {
+        width: 100px;
+        height: 30px;
+        font-size: small;
+    }
+
+    .itinary
+    {
+        height: 50vh;
+        width: 100%;
+        
+        display: flex;
+        flex-direction: row;
+    }
+
+    #modeinput 
+    {
+        
+        align-items: center;
+        height: 100%;
+        width: 50%;
+    }
+
+    #stepresult
+    {
+       
+        align-items: center;
+        height: 100%;
+        width: 50%;
+        }
+
+    #myMap{
+        width: 100%;
+        height: 50vh;
+    }
+    
+    #step
+    {
+        margin-top: 20px;
+        height: 80%;
+    }
+
+
+    #redirectButton
+    {
+        margin-left:auto ;
+        margin-right: auto;
+        text-align: center;
+        font-size: 2vw;
+        background-color: green;
+        border-radius: 3px;
+        text-decoration: none;
+        color: white;
+        width: 50%;
+    }
+
+    #totaldistance p
+    {
+        font-size: 2vw;
+    }
+
+    #modeinput p
+    {
+        font-size: 1.5vw;
+    }
+
+    #modeinput h3
+    {
+        font-size: 3vw;
+    }
+
+
+    .stepContent p
+    {
+        font-size: 2vw;
+    }
+
+
+    #step img
+    {
+        width: 5vw;
+        height: 5vw;
+    }
+
+}

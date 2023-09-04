@@ -471,6 +471,11 @@ footer a
     text-align: center;
 }
 
+#redirectButton
+{
+    text-align: center;
+}
+
 /* Ajoutez cette partie dans votre fichier CSS ou dans une balise <style> dans le <head> de votre document HTML */
 
 /* Animation de fondu pour afficher l'itinéraire */
@@ -578,12 +583,12 @@ footer a
 
     #searchBoxContainer
     {
-        height: 8vh;
+        height: 15vh;
     }
 
     #searchBoxContainer input
     {
-        width: 20vh;
+        width: 85%;
     }
 
     #itinaryContainer
@@ -605,25 +610,26 @@ footer a
     {
         height: 50vh;
         width: 100%;
-        background-color: #27ae60;
-
+        
         display: flex;
         flex-direction: row;
     }
 
     #modeinput 
     {
+        
+        align-items: center;
         height: 100%;
         width: 50%;
-        background-color: blue;
     }
 
     #stepresult
     {
+       
+        align-items: center;
         height: 100%;
         width: 50%;
-        background-color: #8bc09e;
-    }
+        }
 
     #myMap{
         width: 100%;
@@ -632,7 +638,7 @@ footer a
     
     #step
     {
-        height: 13vh;
+        height: 80%;
     }
 
 }

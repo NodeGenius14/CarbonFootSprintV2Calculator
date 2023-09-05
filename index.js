@@ -5,10 +5,13 @@
 
 const express = require('express');
 const fs	  = require('fs')  	  ;
+require ('dotenv').config()       ;
 const port = process.env.PORT || 3000;
 
 const lang = process.env.LANG.slice(0, 2);
 const app = express();
+const apiKey = process.env.API_KEY;
+
 
 app.get('/', (__, res) =>
 {
@@ -18,6 +21,9 @@ app.get('/', (__, res) =>
 	{
 		indexHTML = fs.readFileSync(__dirname + "/public/html/fr/index.html", 'utf-8');
 	}
+	indexHTML = indexHTML.replace('API_KEY', apiKey);
+
+	
 	  res.send(indexHTML);
 });
 
@@ -25,6 +31,7 @@ app.get('/', (__, res) =>
 app.use(express.static(__dirname + '/public/css'));
 app.use(express.static(__dirname + '/src'));
 app.use(express.static('public/img'));
+
 
 
 app.get("/result", (req, res, next) => {
@@ -57,4 +64,5 @@ app.listen(port, () =>
 {
 	  console.log(`Server is running on port ${port}`);
 	  console.log(`Language is ${lang}`);
+	  console.log(process.env.API_KEY)
 });

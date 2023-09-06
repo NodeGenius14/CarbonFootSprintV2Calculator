@@ -199,6 +199,7 @@ class Vue
 					this.resetCalculateBtn		   ();		// Reset L'animation
 					this.afficherStep	 		   ();		// Afficher l'étape
 					this.btnNewInput.disabled = false;		// Peut creer un nouvel input
+					this.btnNewInput.style.backgroundColor = '#3498db';	//couleur du bonton qui cree un nouvel input
 	
 				});
 

@@ -8,7 +8,7 @@ setTimeout(function()
     var header = document.getElementById('header');
     header.style.opacity = 1;
     header.style.visibility = 'visible';
-}, 2000); 
+}, 1000); 
 
 $(document).ready(function() {
     // Écouteur d'événement sur le clic du lien

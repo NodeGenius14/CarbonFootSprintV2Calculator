@@ -3,7 +3,10 @@
 @media screen and (max-width:900px) {
     
 
-
+	.button-Input {
+		padding: 10px 20px;
+		font-size: 14px;
+	}
     .itinary{
         display: flex;
         flex-direction: column;

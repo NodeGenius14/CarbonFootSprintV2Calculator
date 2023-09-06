@@ -275,6 +275,7 @@ main{
     height: 80vh;
     margin: 5	px;
     background: #555;
+	display: flex;
 }
 
 

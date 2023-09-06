@@ -1,180 +1,173 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <title>CarbonFootprint Calculator</title>
-    <!-- Les balises <meta> ci-dessus spécifient l'encodage de caractères et la configuration de l'affichage -->
+		<title>CarbonFootprint Calculator</title>
+		<!-- Les balises <meta> ci-dessus spécifient l'encodage de caractères et la configuration de l'affichage -->
 
-    <!-- Les balises <link> ci-dessous permettent de lier des fichiers CSS -->
-    <link rel="icon" type="image/x-icon" href="leaf.png">
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="index_responsive.css">
-    <link rel="stylesheet" href="footer.css">
-	<!-- Fontawesome CDN Link -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-	<script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
-</head>
-<body>
-	
-    <!-- Contenu de la page -->
-    <header id="header">
+		<!-- Les balises <link> ci-dessous permettent de lier des fichiers CSS -->
+		<link rel="icon" type="image/x-icon" href="leaf.png">
+		<link rel="stylesheet" href="index.css">
+		<link rel="stylesheet" href="index_responsive.css">
+		<link rel="stylesheet" href="footer.css">
+		<!-- Fontawesome CDN Link -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+	</head>
+	<body>
+		
+		<!-- Contenu de la page -->
+		<header id="header">
 
-        <img src="leaf.png">
+			<img src="leaf.png" alt="logo">
 
-        <h1>CarbonFootprint Calculator</h1>
+			<h1>CarbonFootprint Calculator</h1>
 
-		<!-- Dropdown container -->
-		<div class="dropdown">
-			<button class="dropdown-btn">🇬🇧 ENGLISH</button>
-			<div class="dropdown-content">
-			<a href="#" value="france" ><span class="flag-icon">🇫🇷</span> FRENCH</a>
-			<a href="#" value="greatbritain" selected><span class="flag-icon">🇬🇧</span> ENGLISH</a>
-			</div>
-		</div>
-        <!-- En-tête de la page (logo, menu, etc.) -->
-    </header>
-
-    <main id="main">
-        <!-- Contenu principal de la page -->
-        <h1 id="texte">CarbonFootprintCalculator</h1>
-        <p id="texte2">By Arthur Lecomte and Baptiste Dudonné.</p>
-
-        <div class="container">
-            <div class="counter-container">
-              <div class="counter">
-                <h3 data-target="569078" class="count">0</h3>
-                <h6>Tons of Co2 Already Calculated</h6>
-              </div>
-             
-              </div>
-              </div>
-              <button id="calculateButton" class="button-33" href="#itinaryContainer" onclick="displayItinary()" >Start Now !</a>
-    </main>
-
-    <!-- Calculator Part -->
-
-    <div style="display: none;" id="itinaryContainer" class="itinaryContainer">
-
-        <div class="itinary">
-
-
-            <div id="modeinput">
-
-            <h3>Enter your route.</h3>
-
-            <p>Choose your travel mode :</p>
-
-            <div class="travelMode">
-
-                <button id ="btnCar" class="selected" >
-                    <img src="/car.png" alt="car">
-                    <span class="circle"></span>
-                </button>
-            
-                <button id ="btnBus">
-                    <img src="/bus.png" alt="bus">
-                    <span class="circle"></span>
-                </button>
-            
-                <button id ="btnTrain">
-                    <img src="/train.png" alt="train">
-                    <span class="circle"></span>
-                </button>
-            
-                <button id="btnPlane">
-                    <img src="/plane.png" alt="plane">
-                    <span class="circle"></span>
-                </button>
-            </div>
-                          
-                
-        <div class="searchBox">
-
-            <div id='searchBoxContainer'>	
-            </div>
-
-            </div>
-
-
-			<button id="newInput"  class="button-Input" type="button"disabled>Add a step</button>
-			
-			<button id="calculatedistance"  class="button-33" type="button"  disabled>
-				<div >
-					<h4>Calculate</h4>
+			<!-- Dropdown container -->
+			<div class="dropdown">
+				<button class="dropdown-btn">🇬🇧 ENGLISH</button>
+				<div class="dropdown-content">
+				<a href="#" value="france" ><span class="flag-icon">🇫🇷</span> FRENCH</a>
+				<a href="#" value="greatbritain" selected><span class="flag-icon">🇬🇧</span> ENGLISH</a>
 				</div>
-			</button>
+			</div>
+			<!-- En-tête de la page (logo, menu, etc.) -->
+		</header>
+
+		<main id="main">
+			<!-- Contenu principal de la page -->
+			<h1 id="texte">CarbonFootprintCalculator</h1>
+			<p id="texte2">By Arthur Lecomte and Baptiste Dudonné.</p>
+
+			<div class="container">
+				<div class="counter-container">
+				<div class="counter">
+					<h3 data-target="569078" class="count">0</h3>
+					<h6>Tons of Co2 Already Calculated</h6>
+				</div>
+				
+				</div>
+				</div>
+				<button id="calculateButton" class="button-33"  onclick="displayItinary()" >Start Now !</button>
+		</main>
+
+		<!-- Calculator Part -->
+
+		<div style="display: none;" id="itinaryContainer" class="itinaryContainer">
+
+			<div class="itinary">
 
 
-           <br><label id="errorLabel"></label>
+				<div id="modeinput">
+
+				<h3>Enter your route.</h3>
+
+				<p>Choose your travel mode :</p>
+
+				<div class="travelMode">
+
+					<button id ="btnCar" class="selected" >
+						<img src="/car.png" alt="car">
+						<span class="circle"></span>
+					</button>
+				
+					<button id ="btnBus">
+						<img src="/bus.png" alt="bus">
+						<span class="circle"></span>
+					</button>
+				
+					<button id ="btnTrain">
+						<img src="/train.png" alt="train">
+						<span class="circle"></span>
+					</button>
+				
+					<button id="btnPlane">
+						<img src="/plane.png" alt="plane">
+						<span class="circle"></span>
+					</button>
+				</div>
+							
+					
+			<div class="searchBox">
+
+				<div id='searchBoxContainer'>	
+				</div>
+
+				</div>
 
 
-        </div> <!-- fin div modeinput -->
-        <!-- Partie Calculator -->    
-        
-
-        <div id="stepresult">
-        
-            <div id="step">
-               <p>Steps : </p>
-            </div>
-        
-
-        <div id="totaldistance"></div>
-       
-        
-        <a id="redirectButton"  href="">Result Page</a>
-
-        </div> <!-- div stepresult end -->
-
-        </div>
-
-																																																																																
-
-        <div id='myMap' >
-
-        </div>
-	</div> 	
+				<button id="newInput"  class="button-Input" type="button" disabled>Add a step</button>
+				
+				<button id="calculatedistance"  class="button-33" type="button"  disabled>
+					<div >
+						<h3>Calculate</h3>
+					</div>
+				</button>
 
 
-    
+			<br><label id="errorLabel"></label>
 
-    <footer id="footer">
 
-        <p>Node Genuis 2023.</p>
+			</div> <!-- fin div modeinput -->
+			<!-- Partie Calculator -->    
+			
 
-        <p>Contact Us</p>
+			<div id="stepresult">
+			
+				<div id="step">
+				<p>Steps : </p>
+				</div>
+			
 
-    </footer>
+			<div id="totaldistance"></div>
+		
+			
+			<a id="redirectButton"  href="">Result Page</a>
 
-</body>
+			</div> <!-- div stepresult end -->
 
-    <!-- Les balises <script> ci-dessous permettent de lier des fichiers JavaScript -->
-    <script src="progressiveText.js"></script>
+			</div>
 
-    <script src="counter.js"></script>
+																																																																																	
 
-    <script src="fade.js"></script>
+			<div id='myMap' >
 
-   <!-- <script type='text/javascript' src='map.js'></script>-->
+			</div>
+		</div> 	
 
-    <script type='text/javascript' src='Modele/route.js'></script>
-    <script type="text/javascript" src="animations.js"></script>
-	<script type="text/javascript" src="language.js"></script>
- 
-	<script type="text/javascript" src="loadMap.js"></script>
-	<script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=API_KEY&callback=loadMap' async defer></script>
 
-	<script type="text/javascript" src="Vue/Vue.js">			  </script>	
-	<script type="text/javascript" src="Modele/Modele.js">		  </script>
-	<script type="text/javascript" src="Controleur/Controleur.js"></script>
+		
+
+		<footer id="footer">
+
+			<p>Node Genuis 2023.</p>
+
+			<p>Contact Us</p>
+
+		</footer>
+
+		<!-- Les balises <script> ci-dessous permettent de lier des fichiers JavaScript -->
+			<script src="progressiveText.js"></script>
+
+			<script src="counter.js"></script>
 	
+			<script src="fade.js"></script>
 	
+		<!-- <script type='text/javascript' src='map.js'></script>-->
 	
+			<script type='text/javascript' src='Modele/route.js'></script>
+			<script type="text/javascript" src="animations.js"></script>
+			<script type="text/javascript" src="language.js"></script>
+		
+			<script type="text/javascript" src="loadMap.js"></script>
+			<script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=API_KEY&callback=loadMap' async defer></script>
 	
-	
-
-
-</html>
+			<script type="text/javascript" src="Vue/Vue.js">			  </script>	
+			<script type="text/javascript" src="Modele/Modele.js">		  </script>
+			<script type="text/javascript" src="Controleur/Controleur.js"></script>
+			
+	</body>
+	</html>

@@ -6,7 +6,7 @@
 const express = require('express');
 const fs	  = require('fs')  	  ;
 require ('dotenv').config()       ;
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 const lang = process.env.LANG.slice(0, 2);
 const app = express();

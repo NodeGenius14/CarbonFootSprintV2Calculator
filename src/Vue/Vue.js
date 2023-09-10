@@ -351,6 +351,7 @@ class Vue
 		{
 			this.createTextInput ();
 			this.createTextInput ();
+			document.getElementById("searchBox2").disabled = true;
 		});
 
 		Microsoft.Maps.loadModule('Microsoft.Maps.Directions',   () => 

@@ -25,7 +25,10 @@ class Modele
 		var indR = this.tabRoute.length ;		//Indice route
 
 		
-		if   (  indR === 0 ) { this.tabRoute.push(Route.lowArgs(resultVille, resultLatitude, resultLongitude)); }
+		if   (  indR === 0 ) {
+			this.tabRoute.push(Route.lowArgs(resultVille, resultLatitude, resultLongitude));
+			document.getElementById("searchBox2").disabled = false;
+		}
 		else 
 		{
 			

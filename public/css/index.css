@@ -29,6 +29,7 @@ header img
     width: 30px;
     height: 30px;
 }
+
 .flag-icon {
     width: 20px;
     height: 15px;
@@ -162,9 +163,10 @@ header{
     text-align: center;
     width: 100vw;
     height: 8vh;
-    background-color: #555;
-    color: #fff;
+    background-color: #2ECC71FF;
+    /*background-color: #e5e4e0;*/
     padding-top: 10px;
+    margin-left: 10px;
 }
 
 
@@ -271,9 +273,9 @@ main{
 }
 
 #map{
-    width: 80vw;
-    height: 80vh;
-    margin: 5	px;
+    width: 70vw;
+    height: 70vh;
+    margin: 5px;
     background: #555;
 	display: flex;
 }
@@ -430,7 +432,7 @@ h1
     justify-content: center; /* Aligne les éléments verticalement au centre */
     align-items: center; 
     width: 30%;
-    background-color: #8c928f;
+    background-color: #e5e4e0;
     
 }
 
@@ -447,7 +449,7 @@ h1
     height: 40vh;
     width: 97%;
     overflow-x: scroll;
-    background-color: grey;
+    background-color: #d5d0c9;
     border-radius: 5px;
     border: 1px solid black;
     margin: 2px;
@@ -475,7 +477,7 @@ footer{
     bottom: 0;
     width: 100vw;
     height: 6vh;
-    background-color: #555;
+    background-color: #e5e4e0;
 }
 
 footer a
@@ -618,10 +620,10 @@ footer a
         margin-left:auto ;
         margin-right: auto;
         text-align: center;
-        font-size: 18px;
-        background-color: green;
+        font-size: 25px;
+        background-color: #38ff38;
         border-radius: 3px;
         text-decoration: none;
         color: white;
-        width: 50%;
+        width: 80%;
     }

@@ -40,9 +40,6 @@ function displayItinary()
 
   document.getElementById('itinaryContainer').style.display = 'flex';
 
-  document.getElementById('footer').style.display = 'block'
-
-  document.getElementById('footer').style.visibility = 'visible';
 
   document.location.href = '#itinaryContainer';
 

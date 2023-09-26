@@ -27,7 +27,8 @@ class Modele
 		
 		if   (  indR === 0 ) {
 			this.tabRoute.push(Route.lowArgs(resultVille, resultLatitude, resultLongitude));
-			document.getElementById("searchBox2").disabled = false;
+			document.getElementById("searchBox1").disabled = false;
+			this.ctrl.getVue.createTextInput ();
 		}
 		else 
 		{

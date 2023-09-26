@@ -103,20 +103,36 @@ class Vue
 	}
 	set setMap				   ( map ) { this.map = map					      ;}
 
-	
-	createTextInput() 
+	createTextInput()
 	{
+
 		this.nbInput++;
 		const inputElement       = document.createElement ( "input" ) ;
 		inputElement.type 		 = 						    "search"  ;
 		inputElement.id 		 = "searchBox" + ( this.nbInput     ) ;
-		inputElement.placeholder = 					"Enter a city"    ;
+		inputElement.placeholder = 					"Via : Step " + this.nbInput    ;
+
+		this.searchBoxContainer.appendChild	    ( inputElement      ) ;
+		this.      attachAutosuggestToInput     ( inputElement.id   ) ;
+	}
+	createTextInputWithText(text)
+	{
+
+		this.nbInput++;
+		const inputElement       = document.createElement ( "input" ) ;
+		inputElement.type 		 = 						    "search"  ;
+		inputElement.id 		 = "searchBox" + ( this.nbInput     ) ;
+		inputElement.placeholder = 					text;
 		  
 		this.searchBoxContainer.appendChild	    ( inputElement      ) ;
 		this.      attachAutosuggestToInput     ( inputElement.id   ) ;
 	}
 
+
 	attachAutosuggestToInput(inputId) {
+
+
+
 		const manager = new Microsoft.Maps.AutosuggestManager(this.optionsAutoSuggest); // Create manager
 		const self = this; // Store a reference to "this" to use within the callback
 	
@@ -349,8 +365,9 @@ class Vue
 	{
 		Microsoft.Maps.loadModule( 'Microsoft.Maps.AutoSuggest', () => 
 		{
-			this.createTextInput ();
-			this.createTextInput ();
+			this.createTextInputWithText ("From : Starting point");
+			this.createTextInputWithText ("To : Destination");
+
 			document.getElementById("searchBox2").disabled = true;
 		});
 
